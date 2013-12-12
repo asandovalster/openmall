@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
+import cl.openti.openmall.modulo.model.bean.DatosUsuarioBean;
 import cl.openti.openmall.modulo.model.bean.MeterGaugeChart;
 import cl.openti.openmall.modulo.model.bean.TableBean;
 import cl.openti.openmall.modulo.model.bean.TableCDABean;
@@ -46,5 +47,7 @@ public interface IManagerDAO {
 	void loadBarra(CartesianChartModel category) throws SQLException;
 	
 	void loadMap(ZonaBean bean,int cod) throws SQLException;
+	
+	void registerUsuario(DatosUsuarioBean datos) throws SQLException;
 	
 }

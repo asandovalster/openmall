@@ -23,6 +23,7 @@ import cl.openti.openmall.modulo.model.bean.AreaBean;
 import cl.openti.openmall.modulo.model.bean.BoletaBean;
 import cl.openti.openmall.modulo.model.bean.BoletaGarantiaBean;
 import cl.openti.openmall.modulo.model.bean.CDABean;
+import cl.openti.openmall.modulo.model.bean.DatosUsuarioBean;
 import cl.openti.openmall.modulo.model.bean.DepartamentoBean;
 import cl.openti.openmall.modulo.model.bean.DsctoBean;
 import cl.openti.openmall.modulo.model.bean.DsctoGarantiaDeptoBean;
@@ -465,18 +466,23 @@ public class ManagerDAO implements IManagerDAO{
 		////////System.out.println(con);
 		try {
 
-			pst = con.prepareStatement("select du.nombres,du.apellidos,du.email,r.nombre,u.id_usuario,c.descripcion from openmall_usuario u ,openmall_datos_usuario du,openmall_rol r,openmall_cargo c where u.id_usuario = du.id_usuario and u.id_perfil = r.id_rol and c.id = r.id_cargo and u.username = ?");
+			pst = con.prepareStatement("select du.nombres,du.apellidos,u.id_usuario" +
+					"from openmall_usuario u ,openmall_datos_usuario du" +
+					" where u.id_usuario = du.id_usuario and u.username = ? and u.password = ?");
+					//",openmall_rol r,openmall_cargo c where u.id_usuario = du.id_usuario and u.id_perfil = r.id_rol and c.id = r.id_cargo and u.username = ?");
 
 			pst.setString(1, user.getName());
+			pst.setString(2, user.getPassword());
+			
 			rs = pst.executeQuery();
 			if (rs.next()) {
 				//////////System.out.println("Acceso a la Base de Datos... ");
 				// Cargamos Nombre, Apellido, Perfil, Email
 				user.getDatos().setNombres(rs.getString("nombres"));
-				user.getDatos().setApellido(rs.getString("apellidos"));
-				user.getDatos().setEmail(rs.getString("email"));
-				user.getDatos().setCargo( rs.getString("nombre") );
-				user.getPerfil().setNombre(rs.getString("descripcion"));
+				user.getDatos().setApellidos(rs.getString("apellidos"));
+//				user.getDatos().setEmail(rs.getString("email"));
+//				user.getDatos().setCargo( rs.getString("nombre") );
+//				user.getPerfil().setNombre(rs.getString("descripcion"));
 				/*************************/
 			}else{
 				//////////System.out.println("NO Acceso a la Base de Datos... ");
@@ -492,6 +498,37 @@ public class ManagerDAO implements IManagerDAO{
 		} 
 
 	}
+	
+	@Override
+	public void registerUsuario(DatosUsuarioBean datos) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		//
+		Connection con = dataSource.getConnection();
+		//ManagerConnection.getInstance().getConnection();
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		////////System.out.println(con);
+		try {
+
+			pst = con.prepareStatement("insert into openmall_usuario values(0,?,?,?)");
+
+			
+			
+			pst.execute();
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			
+
+		} 
+		
+		
+		
+	}
+	
 	/**
 	 * Carga de las Metas correspondientes, a la fecha actual
 	 * @param table
