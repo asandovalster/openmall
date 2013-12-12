@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+   <f:view       xmlns:h="http://java.sun.com/jsf/html"
+                  xmlns:f="http://java.sun.com/jsf/core"
+                  xmlns:p="http://primefaces.org/ui"
+                  xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100% }
+</style>
+<script type="text/javascript"
+    src="https://maps.google.com/maps/api/js?sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+	  
+	  
+	// ------------------------------------ Tienda Puente
+	  var tiendafoto40 = '#{facesContext.externalContext.context.contextPath}/images/tienda40.jpg';
+	  var tiendafoto47 = '#{facesContext.externalContext.context.contextPath}/images/tienda47.jpg';
+	  var tiendafoto59 = '#{facesContext.externalContext.context.contextPath}/images/tienda59.jpg';
+	  
+	  var tiendaName40 = '#{userBean.zonabean.tienda40.tienda}';
+	  var tiendaName47 = '#{userBean.zonabean.tienda47.tienda}';
+	  var tiendaName59 = '#{userBean.zonabean.tienda59.tienda}';
+	  
+	  
+      var tiendaAddress40 = '#{userBean.zonabean.tienda40.direccion}';
+      var tiendaAddress47 = '#{userBean.zonabean.tienda47.direccion}';
+      var tiendaAddress59 = '#{userBean.zonabean.tienda59.direccion}';
+      
+      
+      var tiendaLat40 = '#{userBean.zonabean.tienda40.latitud}';
+      var tiendaLat47 = '#{userBean.zonabean.tienda47.latitud}';
+      var tiendaLat59 = '#{userBean.zonabean.tienda59.latitud}';
+      
+      var tiendaLon40 = '#{userBean.zonabean.tienda40.longitud}';
+      var tiendaLon47 = '#{userBean.zonabean.tienda47.longitud}';
+      var tiendaLon59 = '#{userBean.zonabean.tienda59.longitud}';
+      
+      var Comuna40 = '#{userBean.zonabean.tienda40.comuna}';
+      var Ciudad40 = '#{userBean.zonabean.tienda40.ciudad}';
+      var Pais40 = '#{userBean.zonabean.tienda40.pais}';
+      var ventasN40 = '$ #{userBean.zonabean.tienda40.svta_neta}';
+      var ventasF40 = '$ #{userBean.zonabean.tienda40.svta_Fin}';
+      var cantidad40 = '#{userBean.zonabean.tienda40.cant_Boleta}';
+  
+      var Comuna47 = '#{userBean.zonabean.tienda47.comuna}';
+      var Ciudad47 = '#{userBean.zonabean.tienda47.ciudad}';
+      var Pais47 = '#{userBean.zonabean.tienda47.pais}';
+      var ventasN47 = '$ #{userBean.zonabean.tienda47.svta_neta}';
+      var ventasF47 = '$ #{userBean.zonabean.tienda47.svta_Fin}';
+      var cantidad47 = '#{userBean.zonabean.tienda47.cant_Boleta}';
+  
+      
+      var Comuna59 = '#{userBean.zonabean.tienda59.comuna}';
+      var Ciudad59 = '#{userBean.zonabean.tienda59.ciudad}';
+      var Pais59 = '#{userBean.zonabean.tienda59.pais}';
+      var ventasN59 = '$ #{userBean.zonabean.tienda59.svta_neta}';
+      var ventasF59 = '$ #{userBean.zonabean.tienda59.svta_Fin}';
+      var cantidad59 = '#{userBean.zonabean.tienda59.cant_Boleta}';
+  
+      
+    var latlng40 = new google.maps.LatLng(tiendaLat40, tiendaLon40);
+    var latlng47 = new google.maps.LatLng(tiendaLat47, tiendaLon47);
+    var latlng59 = new google.maps.LatLng(tiendaLat59, tiendaLon59);
+    
+    var myOptions = {
+      zoom: 6,
+      center: latlng40,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+    
+    
+    var marker40 = new google.maps.Marker({
+        position: latlng40,
+        map: map,
+        title: tiendaName40
+    });
+    
+    var marker47 = new google.maps.Marker({
+        position: latlng47,
+        map: map,
+        title: tiendaName47
+    });
+    
+    var marker59 = new google.maps.Marker({
+        position: latlng59,
+        map: map,
+        title: tiendaName59
+    });
+    
+    
+    var contentString40 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto40 + '"/>'+
+    '<h2>' + tiendaName40 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress40 + '<BR/>' +
+    'CIUDAD : ' + Ciudad40 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN40 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF40 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad40 +'<BR/>' +
+    '</div></div>'; 
+    
+    var contentString47 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto47 + '"/>'+
+    '<h2>' + tiendaName47 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress47 + '<BR/>' +
+    'CIUDAD : ' + Ciudad47 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN47 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF47 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad47 +'<BR/>' +
+    '</div></div>'; 
+    
+    
+    
+    var contentString59 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto59 + '"/>'+
+    '<h2>' + tiendaName59 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress59 + '<BR/>' +
+    'CIUDAD : ' + Ciudad59 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN59 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF59 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad59 +'<BR/>' +
+    '</div></div>'; 
+    
+   
+
+    var infowindow40 = new google.maps.InfoWindow({
+        content: contentString40
+    });
+
+
+    var infowindow47 = new google.maps.InfoWindow({
+        content: contentString47
+    });
+
+    var infowindow59 = new google.maps.InfoWindow({
+        content: contentString59
+    });
+
+    
+    google.maps.event.addListener(marker40, 'click', function() {
+    	infowindow40.open(map,marker40);
+    });
+    
+    google.maps.event.addListener(marker47, 'click', function() {
+    	infowindow47.open(map,marker47);
+    });
+    
+    google.maps.event.addListener(marker59, 'click', function() {
+    	infowindow59.open(map,marker59);
+    });
+     
+
+    
+    
+  }
+
+</script>
+</head>
+<body onload="initialize()">
+  <div id="map_canvas" style="width:100%; height:100%"></div>
+</body>
+
+</f:view>
+</html>

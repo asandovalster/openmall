@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+	</h:head>
+
+	<pm:page
+		title="hasCode.com PrimeFaces Mobile Tutorial - Simple Navigation">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+				
+				
+			</div>	
+			 			
+			
+			<pm:navBar>
+				<p:button value="Consultar" icon="search" href="#{userBean.url2}"
+					styleClass="ui-btn-active" />
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+			</pm:navBar>	
+		
+		</pm:view>
+	</pm:page>
+</f:view>

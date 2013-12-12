@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html" renderKitId="PRIMEFACES_MOBILE">
+
+	<h:head>
+		<link rel="shortcut icon" href="images/logo_ico.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/openmall/javax.faces.resource/common.js?ln=js">
+		</script>
+	</h:head>
+
+	<pm:page title="::: Bienvenido OpenMall Mobile :::">
+
+
+		<pm:view id="navbar" swatch="d">
+ 			<pm:header title="Tu Pedido, a tu Casa!" swatch="b">
+            </pm:header>
+			<!-- <h:outputScript library="js" name="common.js" /> -->
+			<div id="psdg-header">
+				<p:graphicImage value="images/logo.png"  width="250" height="100"/>  
+				
+			</div>
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			
+			
+
+			<pm:content>
+			
+				<p:dataList type="inset">
+                    <f:facet name="header">Restaurantes</f:facet>
+                    <h:form id="form01">
+                    	<p:commandButton value="Il Piacere" action="#{userBean.goRes1}" rendered="true"/>
+                    	<p:commandButton value="El Domo" action="#{userBean.goRes2}" rendered="true"/>
+                    </h:form>
+                    
+                </p:dataList>
+                
+             
+             <h:form id="id0">
+				<f:facet name="header"></f:facet>
+				 <p:commandButton value="Cerrar Session" icon="check" action="#{userBean.logout}"  global="false" />
+			</h:form>
+			
+             
+  			</pm:content>
+		</pm:view>
+		<pm:view id="viewTrafico">
+			<div id="psdg-header">
+				<span class="psdg-bold">OpenMall Mobile</span><br /> Web
+				Corporativa de OpenTI - Negocios y Gestion
+			</div>
+			<pm:header title="Consulta Trafico" />
+			
+			<pm:content>
+				
+				<h:form>
+					<p:commandButton value="Ver Grafico"
+						action="#{userBean.submit}" />
+					<p:commandButton value="Volver"
+						action="pm:navbar" />	
+				</h:form>
+		</pm:content>
+		</pm:view>
+		<pm:view id="viewEfectividad">
+		<div id="psdg-header">
+				<span class="psdg-bold">OpenMall Mobile</span><br /> Web
+				Corporativa de OpenTI - Negocios y Gestion
+			</div>
+			<pm:header title="Consulta Efectividad" />
+			<pm:content>
+				
+				<h:form>
+					<p:commandButton value="Ver Grafico"
+						action="#{userBean.submit2}" />
+					<p:commandButton value="Volver"
+						action="pm:navbar" />	
+				</h:form>
+		</pm:content>
+		</pm:view>
+<pm:view id="viewProductividad">
+		<div id="psdg-header">
+				<span class="psdg-bold">OpenMall Mobile</span><br /> Web
+				Corporativa de OpenTI - Negocios y Gestion
+			</div>
+			<pm:header title="Consulta Productividad" />
+			<pm:content>
+				
+				<h:form>
+					<p:commandButton value="Ver Grafico"
+						action="#{userBean.submit3}" />
+					<p:commandButton value="Volver"
+						action="pm:navbar" />	
+				</h:form>
+		</pm:content>
+		</pm:view> 
+
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+
+
+	</pm:page>
+</f:view>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+     <h:head>
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+
+
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+			</div>	
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="reporte1.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+		<p:panel header="Reporte Detalle - Ventas" collapsed="false">	
+			
+			<h:form id="form">
+    <p:dataTable id="deptoTable" var="depto" value="#{tableBean.deptos}" style="margin:0px;width:90%" >
+
+        <f:facet name="header">
+           Departamentos
+        </f:facet>
+        								
+       							    	  			 <p:column style="width:16px;align:right">  
+							            				<p:rowToggler id="deptoT"/>  
+							        				</p:column>  
+   									
+   													<p:column style="font: 9px Arial, Helvetica, sans-serif;">  
+                										<f:facet name="header">  
+                  						 					<h:outputText value="Departamento" style="font: 9px Arial, Helvetica, sans-serif;"/>  
+                										</f:facet>  
+                										<h:outputText value="#{depto.departamento}" style="font: 9px Arial, Helvetica, sans-serif;"/>
+            										</p:column>  
+  							     
+  							     					<p:column style="text-align:center;font: 9px Arial, Helvetica, sans-serif;">
+        												<f:facet name="header">  
+                  						 					<h:outputText value="Monto" style="font: 9px Arial, Helvetica, sans-serif;"/>  
+                										</f:facet>  
+         						   						<h:outputText value="#{depto.monto}" style="font: 9px Arial, Helvetica, sans-serif;">
+        													<f:convertNumber type="currency" currencySymbol="$" />
+           						 						</h:outputText>
+       							 					</p:column>
+       							
+    </p:dataTable>
+    
+    
+    
+  
+<!--     <p:panel header="Export All Data">  --> 
+        <h:commandLink>  
+            <p:graphicImage value="./images/excel.png" />  
+            <p:dataExporter type="xls" target="ventasTable" fileName="ventas" />  
+        </h:commandLink>  
+  
+        <h:commandLink>  
+            <p:graphicImage value="./images/pdf.png" />  
+            <p:dataExporter type="pdf" target="ventasTable" fileName="ventas"/>  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="./images/csv.png" />  
+            <p:dataExporter type="csv" target="ventasTable" fileName="ventas" />  
+        </h:commandLink>  
+          
+        <h:commandLink>  
+            <p:graphicImage value="./images/xml.png" />  
+            <p:dataExporter type="xml" target="ventasTable" fileName="ventas" />  
+        </h:commandLink>  
+  
+
+    
+</h:form>	
+</p:panel>
+	</pm:view>
+	</pm:page>
+</f:view>

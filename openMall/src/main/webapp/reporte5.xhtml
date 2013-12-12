@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+     <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+
+
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+			</div>	
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+		
+		<p:panel header="Ventas x Local" collapsed="false">	
+		
+			<ui:include src="greporte.html"/>
+			
+ 
+			
+		</p:panel>
+
+		
+		</pm:view>
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+	</pm:page>
+</f:view>

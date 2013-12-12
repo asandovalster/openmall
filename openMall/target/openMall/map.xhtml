@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:m="http://code.google.com/p/gmaps4jsf/"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+		
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<style type="text/css">
+		  html { height: 100% }
+		  body { height: 100%; margin: 0px; padding: 0px }
+		  #map_canvas { height: 100% }
+		</style>
+		<script type="text/javascript"
+		    src="https://maps.google.com/maps/api/js?sensor=true">
+		</script>
+
+
+
+		<script type="text/javascript">
+		  function initialize() {
+		    var latlng = new google.maps.LatLng(-34.397, 150.644);
+		    var myOptions = {
+		      zoom: 8,
+		      center: latlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    };
+		    var map = new google.maps.Map(document.getElementById("map_canvas"),
+		        myOptions);
+		    
+		    
+		    var marker = new google.maps.Marker({
+		        position: myLatlng,
+		        draggable: true,
+		        map: map,
+		        title:&quot;Ejemplo marcador arrastrable&quot;
+		    });
+		 
+		    google.maps.event.addListener(marker, 'click', function(){
+		        openInfoWindow(marker);
+		    });
+		    
+		  }
+		
+		</script>
+</h:head>
+		
+
+<body  onload="initialize()">
+
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<span class="psdg-bold">HiNet Mobile</span><br /> Informaci&oacute;n de Negocio
+			</div>	
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+		<p:panel header="Mapa Tiendas - Ventas v2.1" collapsed="false">	
+			
+			<iframe src="http://www.w3schools.com"></iframe>
+			
+			<!-- <h:form id="form">
+        		<m:map id="map2" width="600px" height="600px" latitude="-33.4350813" longitude="-70.6515767" zoom="10">
+            	<m:marker latitude="-33.4350813" longitude="-70.6515767" draggable="false">
+            		<m:htmlInformationWindow latitude="-33.4350813" longitude="-70.6515767" htmlText="Tienda Edificio Puente" />
+            	</m:marker>
+             	<m:marker latitude="-33.435727" longitude="-70.6514848" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.435727" longitude="-70.6514848" htmlText="Tienda Puente" />
+            	</m:marker>
+             	<m:marker latitude="-33.438608" longitude="-70.6514848" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.438608" longitude="-70.6514848" htmlText="Tienda Plaza de Armas" />
+            	</m:marker>
+             
+            	 <m:marker latitude="-33.44275927257664" longitude="-70.64679980278015" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.44275927257664" longitude="-70.64679980278015" htmlText="Tienda Alameda" />
+            	</m:marker>
+            	
+            	
+            	<m:marker latitude="-33.5105842" longitude="-70.7576613" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.5105842" longitude="-70.7576613" htmlText="Tienda Maipú" />
+            	</m:marker>
+            	
+            	
+            	<m:marker latitude="-33.6102929" longitude="-70.5757636" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.6102929" longitude="-70.5757636" htmlText="Tienda Puente Alto" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-33.4521276" longitude="-70.6767982" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.4521276" longitude="-70.6767982" htmlText="Tienda Estación Central" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-33.6100983" longitude="-70.5408379" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-33.6100983" longitude="-70.5408379" htmlText="Tienda San Bernardo" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-34.169574" longitude="-70.7453592" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-34.169574" longitude="-70.7453592" htmlText="Tienda Independencia" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-40.5733672" longitude="-73.1308504" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-40.5733672" longitude="-73.1308504" htmlText="Osorno" />
+            	</m:marker>
+
+            	<m:marker latitude="-27.3667502" longitude="-70.3334686" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-27.3667502" longitude="-70.3334686" htmlText="Tienda Copiapo" />
+            	</m:marker>
+
+            	
+            	<m:marker latitude="-38.7387166" longitude="-72.5880824" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-38.7387166" longitude="-72.5880824" htmlText="Tienda Temuco" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-36.8253547" longitude="-73.0473888" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-36.8253547" longitude="-73.0473888" htmlText="Concepción" />
+            	</m:marker>
+            	
+            	
+            	<m:marker latitude="-36.6081797" longitude="-72.1030657" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-36.6081797" longitude="-72.1030657" htmlText="Tienda Expo Chillán" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-29.9032248" longitude="-71.2508613" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-29.9032248" longitude="-71.2508613" htmlText="Tienda La Serena" />
+            	</m:marker>
+            	
+            	<m:marker latitude="-23.6475935" longitude="-70.3968086" draggable="false" zoom="10">
+            		<m:htmlInformationWindow latitude="-23.6475935" longitude="-70.3968086" htmlText="Tienda Antofagasta" />
+            	</m:marker>
+            	
+            	
+            	
+            	
+            	
+             
+        		</m:map> -->
+    
+</h:form>	
+</p:panel>
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+	</body>
+</f:view>

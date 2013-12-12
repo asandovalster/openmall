@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+	<h:head>
+		<link rel="shortcut icon" href="images/logo_ico.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+		
+		
+	</h:head>
+
+	<pm:page title="::: Bienvenido Open Mall :::">
+
+
+
+ 
+		<pm:view id="viewProductividad" swatch="e">
+		
+	
+	 		<div id="psdg-header">
+		  
+		    	<p:graphicImage value="images/logo.png"  width="250" height="100"/>  
+				 
+			</div>
+	
+			<pm:header title="Acceso" swatch="b"/>
+			<pm:content>
+				<h:form>
+				<p:messages id="messages" ShowDetail="true" autoUpdate="true"/>
+								
+				<p:panelGrid columns="2" id="logon">
+				    <h:outputText value="Usuario:"/>
+				    <p:inputText id="name"  value="#{userBean.name}"/>
+				    <h:outputText  value="Password:"/>
+				    <p:password id="password"  value="#{userBean.password}"/>
+				    
+				    <h:outputText  value=""/>
+				    <p:commandButton value="Entrar" type="Submit"
+						action="#{userBean.logon}" update="logon"  ajax="false"/>
+				</p:panelGrid>		
+				
+				
+				</h:form>
+				
+				
+				
+			<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/es_LA/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+<div class="fb-like" data-href="http://www.openti.cl/openmall" data-width="1000" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>				
+		
+		
+		</pm:content>
+		</pm:view> 
+
+	</pm:page>
+</f:view>

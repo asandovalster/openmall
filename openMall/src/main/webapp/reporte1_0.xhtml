@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+         <script type="text/javascript">
+			 function launch(cal){
+				 
+				 document.form0.submit();
+			 }
+		</script>
+		
+		
+		 <style type="text/css">
+
+
+			.ui-selectonemenu{
+			
+			   font: 10px  Arial, Helvetica, sans-serif;	
+			}
+			
+			.ui-selectonemenu-label{
+			
+			   font: 8px  Arial, Helvetica, sans-serif;	
+			}
+			
+			.ui-datepicker{
+			
+			  font: 12px  Arial, Helvetica, sans-serif;
+			}
+			
+			
+			
+
+		</style>	
+		 
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+					
+				
+			</div>	
+			<div id="psdg-header11" style="align:center;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+			<h:form id="form0">
+			
+			 <p:growl id="growl" />  
+			
+			<p:messages id="messages" showDetail="true" autoUpdate="true"/>  
+           
+	
+			
+			<h:panelGrid columns="4"  style="margin-left:30px;margin-top:10px;margin-bottom:10px;margin-right:20px;border:2px;width:70%;align-font:left">  
+		        
+				  <h:outputLabel value="Rango :" />  	
+				  <p:calendar   id="from"  required="true" readOnlyInputText="true" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;"
+				  value="#{tableCdaBean.filterDesde}" pattern="dd/MM/yyyy"  locale="es" size="1" >
+				  	<p:ajax event="dateSelect" listener="#{tableCdaBean.handleDateSelect}" update="to" />  
+				  </p:calendar>
+				  <p:spacer width="100" height="10" />
+				   <p:calendar id="to" required="true" readOnlyInputText="true" value="#{tableCdaBean.filterHasta}" mindate="#{tableCdaBean.filterDesde}"
+				   pattern="dd/MM/yyyy"  locale="es" size="10"  />
+				                     
+				  <h:outputLabel value="Archivo :" />  	    
+				  <p:selectOneMenu  id="arch" value="#{tableCdaBean.filterArchivo}"  immediate="true" style="width:200px" > 
+    					<f:selectItem itemLabel="Todos" itemValue="0" />  
+    					<f:selectItems value="#{tableCdaBean.archivos}" />           
+    			  </p:selectOneMenu>
+    			  <h:outputLabel value=""  />    
+    								
+				                 	 
+				  <h:commandButton icon="ui-icon-search" value="Filtrar"  type="Submit" 
+				  action="#{tableCdaBean.filtrar}"   
+				  style="margin:0px;font: 08px  Arial, Helvetica, sans-serif;top:0px"/>   						
+			</h:panelGrid>
+			
+			
+			
+			
+		<p:panel header="Reporte Ventas " collapsed="false">	
+		
+			
+    <p:dataTable resizableColumns="false" id="posTable" var="cda" value="#{tableCdaBean.cda}" 
+    style="margin:0px;width:100%;"  scrollWidth="1300" paginator="true" rows="10">
+    
+        <p:column  sortBy="#{cda.sfeccar}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+       		<f:facet name="header">  
+                    <h:outputText value="Fecha" />  
+            </f:facet>  
+           <h:outputText value="#{cda.sfeccar}"  style="text-align:center;font: 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+          
+        </p:column>
+    
+    
+	     <p:column  sortBy="#{cda.archivo}" value="archivo" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+       		<f:facet name="header">  
+                    <h:outputText value="Archivo" />  
+            </f:facet>  
+           <h:outputText value="#{cda.archivo}"  style="text-align:center;font: 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+          
+        </p:column>
+
+         <p:column sortBy="#{cda.treg}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                   <h:outputText value="Reg. Iseries" />  
+            </f:facet>  
+            <h:outputText value="#{cda.treg}" style="text-align:center;#{cda.treg le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+        
+         <p:column sortBy="#{cda.tregp}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    <h:outputText value="Reg. Pentaho" />
+            </f:facet>  
+            <h:outputText value="#{cda.tregp}" style="text-align:center;#{cda.tregp le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+        
+          <p:column sortBy="#{cda.diff}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                   <h:outputText value="Diferencia" />  
+            </f:facet>  
+            <h:outputText value="#{cda.diff}" style="text-align:center;#{cda.diff le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+	
+    </p:dataTable>
+   </p:panel>
+</h:form>
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+</f:view>

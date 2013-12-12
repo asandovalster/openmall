@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['gauge']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Avance', 70]
+        ]);
+
+        var options = {
+          width: 800, height: 420,
+          redFrom: 0, redTo: 33,
+          yellowFrom:33, yellowTo: 67,
+          greenFrom: 67, greenTo: 100,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+  	<div style="align:center">
+    <div id='chart_div' style="align:center"></div>
+    </div>
+  </body>
+</html>

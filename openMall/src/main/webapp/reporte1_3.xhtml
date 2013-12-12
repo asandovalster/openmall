@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+
+
+
+	
+		<script type="text/javascript">
+		
+		 function launch(){
+			 document.form.submit();
+		 }
+		
+		
+		
+		</script>
+
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+				
+			</div>
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+			
+			<h:form id="form">	
+			
+			   	
+		<p:growl id="growl" showDetail="true" sticky="true"/>
+			
+		<p:panel header="Reporte Ranking Vendedores" collapsed="false">	
+			
+		
+			
+			
+			
+    <p:dataTable id="dsctosTable" resizableColumns="false" var="dscto" value="#{tableDsctoBean.descuentos}" 
+    style="margin:0px;"  paginator="false" rows="14"> 
+
+        
+        <f:facet name="header">
+            Ranking Vendedores - Descuentos
+        </f:facet>
+
+        <p:columnGroup type="header" style="margin:0px;width:100%">
+        
+            <p:row>
+                
+                <p:column colspan="1" headerText="Sel." style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column rowspan="5" headerText="Locales" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableDsctoBean.fecha}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableDsctoBean.fecha}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                 <p:column colspan="1" headerText="" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                 <p:column colspan="1" headerText="" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+            <p:row>
+           		<p:column headerText="Exp" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+           		<p:column headerText="VTA S/DCTO" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;" />
+                <p:column headerText="VTA NETA" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="DSCTO" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="( % )" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+        </p:columnGroup>
+			
+			
+		 <p:column style="width:16px">  
+            <p:rowToggler id="localT"/>  
+        </p:column>  	
+			
+        <p:column sortBy="#{dscto.tienda}" filterBy="#{dscto.tienda}" >
+       		<f:facet name="header" >  
+                    #{dscto.tienda}  
+            </f:facet>  
+           <h:outputText value="#{dscto.tienda}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;"/>
+        	
+          
+        </p:column>
+
+        <p:column style="text-align:center;width:90px;"  sortBy="#{dscto.montoBase}">
+        	<f:facet name="header">  
+                    #{dscto.montoBase}  
+            </f:facet>  
+            <h:outputText value="#{dscto.montoBase}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{dscto.montoBase le 0 ? 'color:#ff0000;' : null}">
+        		<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+
+        <p:column style="text-align:center;width:90px;"  sortBy="#{dscto.montoNeto}">
+        	<f:facet name="header">  
+                    #{dscto.montoNeto}  
+            </f:facet>  
+            <h:outputText value="#{dscto.montoNeto}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{dscto.montoNeto le 0 ? 'color:#ff0000;' : null}">
+        		<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center;width:90px;" sortBy="#{dscto.dscto}">
+        	<f:facet name="header">  
+                    #{dscto.dscto}  
+            </f:facet>  
+            <h:outputText value="#{dscto.dscto}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{dscto.dscto le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$ ###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center" sortBy="#{dscto.por_dscto}">
+        	<f:facet name="header">  
+                    #{dscto.por_dscto}  
+            </f:facet>  
+          <h:outputText value="#{dscto.por_dscto}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="1"/>
+            </h:outputText>
+        </p:column>
+
+      
+       
+          <p:rowExpansion id="idsalesTable">  
+          
+          
+         			<p:panel id="display2" header=" " collapsed="true">	
+  					
+  					<p:dataTable id="salesTable" var="sales" value="#{dscto.modelSales}" 
+  					style="margin:0px;width:100%;" 
+  					selection="#{tableDsctoBean.salesSelected}" pagination="false"  
+  					resizableColumns="false" selectionMode="single" rowKey="#{sales.id_sales}">
+  
+  									
+  								    <p:ajax event="rowSelect" update=":form:growl"  listener="#{tableDsctoBean.onRowSelect}"   />  
+       								
+  									
+        						    <f:facet name="header">
+        							     #{dscto.tienda}
+        							</f:facet>
+   							    
+  							     <p:column sortBy="#{sales.vendedor}" style="width:120px;margin:0px;font: 12px Arial, Helvetica, sans-serif;">  
+                						<f:facet name="header">  
+                  						 <h:outputText value="Vendedor" />  
+                						</f:facet>  
+                						<h:outputText value="#{sales.vendedor}" />
+            						</p:column>  
+  							    
+  							     
+  							     <p:column sortBy="#{sales.montoBase}" style="text-align:center;margin:0px;width:70px;font: 12px Arial, Helvetica, sans-serif;">
+        							<f:facet name="header">  
+                  						 <h:outputText value="VTA S/DCTO" style="#{sales.montoBase le 0 ? 'color:#ff0000;' : null}"/>  
+                						</f:facet>  
+         						   <h:outputText value="#{sales.montoBase}">
+        							<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+           						 	</h:outputText>
+       							 </p:column>	 
+       							
+  							     <p:column sortBy="#{sales.montoNeto}" style="text-align:center;margin:0px;width:70px;font: 12px Arial, Helvetica, sans-serif;">
+        							<f:facet name="header">  
+                  						 <h:outputText value="VTA NETA" style="#{sales.montoNeto le 0 ? 'color:#ff0000;' : null}"/>  
+                						</f:facet>  
+         						   <h:outputText value="#{sales.montoNeto}">
+        							<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+           						 	</h:outputText>
+       							 </p:column>	 
+
+ 								<p:column sortBy="#{sales.dscto}" style="text-align:center;margin:0px;width:70px;font: 12px Arial, Helvetica, sans-serif;">
+        							<f:facet name="header">  
+                  						 <h:outputText value="DSCTO" style="#{sales.dscto le 0 ? 'color:#ff0000;' : null}"/>  
+                						</f:facet>  
+         						   <h:outputText value="#{sales.dscto}">
+        							<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+           						 	</h:outputText>
+       							 </p:column>	 
+
+  							  <p:column style="text-align:center;margin:0px;width:50px" sortBy="#{sales.por_dscto}">
+        						<f:facet name="header">  
+                    				 <h:outputText value="(%)" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;"/>   
+            					</f:facet>  
+          						<h:outputText value="#{sales.por_dscto}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;">
+        							<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="2"/>
+            					</h:outputText>
+        					</p:column> 
+                  				 
+       							   
+   					 </p:dataTable>
+							 
+							
+
+
+							</p:panel>
+
+  						</p:rowExpansion>
+  			<p:columnGroup type="footer" style="text-align:right;margin:0px;width:100%;"> 
+			<p:row>
+				<p:column colspan="2" footerText="Total:" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableDsctoBean.sbaseTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableDsctoBean.snetoTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableDsctoBean.sdsctoTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableDsctoBean.savanceTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+			</p:row>             
+        </p:columnGroup>
+  						
+
+   					 </p:dataTable>
+  								
+  	   			</p:panel>
+
+</h:form>	
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+</f:view>

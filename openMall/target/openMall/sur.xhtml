@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+   <f:view       xmlns:h="http://java.sun.com/jsf/html"
+                  xmlns:f="http://java.sun.com/jsf/core"
+                  xmlns:p="http://primefaces.org/ui"
+                  xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<base  href="http://10.107.100.25:8080/hiNetTablet/" />
+<style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100% }
+</style>
+<script type="text/javascript"
+    src="https://maps.google.com/maps/api/js?sensor=true">
+</script>
+<script type="text/javascript">
+  function initialize() {
+	  
+	  
+	// ------------------------------------ Tienda Puente
+	  var tiendafoto34 = 'images/tienda34.jpg';
+	  var tiendafoto45 = 'images/tienda45.jpg';
+	  var tiendafoto49 = 'images/tienda49.jpg';
+	  var tiendafoto56 = 'images/tienda56.jpg';
+	  var tiendafoto57 = 'images/tienda57.jpg'; 
+	  
+	  var tiendaName34 = '#{userBean.zonabean.tienda34.tienda}';
+	  var tiendaName45 = '#{userBean.zonabean.tienda45.tienda}';
+	  var tiendaName49 = '#{userBean.zonabean.tienda49.tienda}';
+	  var tiendaName56 = '#{userBean.zonabean.tienda56.tienda}';
+	  var tiendaName57 = '#{userBean.zonabean.tienda57.tienda}'; 
+	  
+	  
+      var tiendaAddress34 = '#{userBean.zonabean.tienda34.direccion}';
+       var tiendaAddress45 = '#{userBean.zonabean.tienda45.direccion}';
+      var tiendaAddress49 = '#{userBean.zonabean.tienda49.direccion}';
+      var tiendaAddress56 = '#{userBean.zonabean.tienda56.direccion}';
+      var tiendaAddress57 = '#{userBean.zonabean.tienda57.direccion}'; 
+      
+      
+      var tiendaLat34 = '#{userBean.zonabean.tienda34.latitud}';
+      var tiendaLat45 = '#{userBean.zonabean.tienda45.latitud}';
+      var tiendaLat49 = '#{userBean.zonabean.tienda49.latitud}';
+      var tiendaLat56 = '#{userBean.zonabean.tienda56.latitud}';
+      var tiendaLat57 = '#{userBean.zonabean.tienda57.latitud}'; 
+      
+      var tiendaLon34 = '#{userBean.zonabean.tienda34.longitud}';
+      var tiendaLon45 = '#{userBean.zonabean.tienda45.longitud}';
+      var tiendaLon49 = '#{userBean.zonabean.tienda49.longitud}';
+      var tiendaLon56 = '#{userBean.zonabean.tienda56.longitud}';
+      var tiendaLon57 = '#{userBean.zonabean.tienda57.longitud}'; 
+      
+      var Comuna34 = '#{userBean.zonabean.tienda34.comuna}';
+      var Ciudad34 = '#{userBean.zonabean.tienda34.ciudad}';
+      var Pais34 = '#{userBean.zonabean.tienda34.pais}';
+      var ventasN34 = '$ #{userBean.zonabean.tienda34.svta_neta}';
+      var ventasF34 = '$ #{userBean.zonabean.tienda34.svta_Fin}';
+      var cantidad34 = '#{userBean.zonabean.tienda34.cant_Boleta}';
+   
+      var Comuna45 = '#{userBean.zonabean.tienda45.comuna}';
+      var Ciudad45 = '#{userBean.zonabean.tienda45.ciudad}';
+      var Pais45 = '#{userBean.zonabean.tienda45.pais}';
+      var ventasN45 = '$ #{userBean.zonabean.tienda45.svta_neta}';
+      var ventasF45 = '$ #{userBean.zonabean.tienda45.svta_Fin}';
+      var cantidad45 = '#{userBean.zonabean.tienda45.cant_Boleta}';
+      
+      
+      var Comuna49 = '#{userBean.zonabean.tienda49.comuna}';
+      var Ciudad49 = '#{userBean.zonabean.tienda49.ciudad}';
+      var Pais49 = '#{userBean.zonabean.tienda49.pais}';
+      var ventasN49 = '$ #{userBean.zonabean.tienda49.svta_neta}';
+      var ventasF49 = '$ #{userBean.zonabean.tienda49.svta_Fin}';
+      var cantidad49 = '#{userBean.zonabean.tienda49.cant_Boleta}';
+      
+      var Comuna56 = '#{userBean.zonabean.tienda56.comuna}';
+      var Ciudad56 = '#{userBean.zonabean.tienda56.ciudad}';
+      var Pais56 = '#{userBean.zonabean.tienda56.pais}';
+      var ventasN56 = '$ #{userBean.zonabean.tienda56.svta_neta}';
+      var ventasF56 = '$ #{userBean.zonabean.tienda56.svta_Fin}';
+      var cantidad56 = '#{userBean.zonabean.tienda56.cant_Boleta}';
+      
+      var Comuna57 = '#{userBean.zonabean.tienda57.comuna}';
+      var Ciudad57 = '#{userBean.zonabean.tienda57.ciudad}';
+      var Pais57 = '#{userBean.zonabean.tienda57.pais}';
+      var ventasN57 = '$ #{userBean.zonabean.tienda57.svta_neta}';
+      var ventasF57 = '$ #{userBean.zonabean.tienda57.svta_Fin}';
+      var cantidad57 = '#{userBean.zonabean.tienda57.cant_Boleta}'; 
+      
+      
+    var latlng34 = new google.maps.LatLng(tiendaLat34, tiendaLon34);
+    var latlng45 = new google.maps.LatLng(tiendaLat45, tiendaLon45);
+    var latlng49 = new google.maps.LatLng(tiendaLat49, tiendaLon49);
+    var latlng56 = new google.maps.LatLng(tiendaLat56, tiendaLon56);
+    var latlng57 = new google.maps.LatLng(tiendaLat57, tiendaLon57); 
+	
+    var myOptions = {
+      zoom: 6,
+      center: latlng34,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+    
+    
+    var marker34 = new google.maps.Marker({
+        position: latlng34,
+        map: map,
+        title: tiendaName34
+    });
+    
+    var marker45 = new google.maps.Marker({
+        position: latlng45,
+        map: map,
+        title: tiendaName45
+    });
+    
+    
+    
+    
+    var marker49 = new google.maps.Marker({
+        position: latlng49,
+        map: map,
+        title: tiendaName49
+    });
+    
+    
+    var marker56 = new google.maps.Marker({
+        position: latlng56,
+        map: map,
+        title: tiendaName56
+    });
+    
+    var marker57 = new google.maps.Marker({
+        position: latlng57,
+        map: map,
+        title: tiendaName57
+    });
+    
+   
+    
+    var contentString34 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto34 + '"/>'+
+    '<h2>' + tiendaName34 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress34 + '<BR/>' +
+    'CIUDAD : ' + Ciudad34 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN34 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF34 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad34 +'<BR/>' +
+    '</div></div>'; 
+    
+
+    var contentString45 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto45 + '"/>'+
+    '<h2>' + tiendaName45 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress45 + '<BR/>' +
+    'CIUDAD : ' + Ciudad45 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN45 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF45 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad45 +'<BR/>' +
+    '</div></div>'; 
+    
+
+ 
+
+    var contentString49 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto49 + '"/>'+
+    '<h2>' + tiendaName49 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress49 + '<BR/>' +
+    'CIUDAD : ' + Ciudad49 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN49 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF49 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad49 +'<BR/>' +
+    '</div></div>'; 
+    
+    var contentString56 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto56 + '"/>'+
+    '<h2>' + tiendaName56 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress56 + '<BR/>' +
+    'CIUDAD : ' + Ciudad56 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN56 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF56 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad56 +'<BR/>' +
+    '</div></div>'; 
+   
+    
+    var contentString57 = '<div id="content" style="font: 10px Arial, Helvetica, sans-serif;">'+
+    '<img src="' + tiendafoto57 + '"/>'+
+    '<h2>' + tiendaName57 + '</h2>'+
+    '<div id="bodyContent">DIRECCION : '+ tiendaAddress57 + '<BR/>' +
+    'CIUDAD : ' + Ciudad57 + '<BR/>' +
+    'VENTAS NETA : ' + ventasN57 +'<BR/>' +
+    'VENTAS FIN. : ' + ventasF57 +'<BR/>' +
+    'CANT. BOL.  : ' + cantidad57 +'<BR/>' +
+    '</div></div>'; 
+   
+   
+
+    var infowindow34 = new google.maps.InfoWindow({
+        content: contentString34
+    });
+
+
+    var infowindow45 = new google.maps.InfoWindow({
+        content: contentString45
+    });
+
+    
+   
+    
+    var infowindow49 = new google.maps.InfoWindow({
+        content: contentString49
+    });
+     
+    var infowindow56 = new google.maps.InfoWindow({
+        content: contentString56
+    });
+    
+    var infowindow57 = new google.maps.InfoWindow({
+        content: contentString57
+    });
+    
+    google.maps.event.addListener(marker34, 'click', function() {
+    	infowindow34.open(map,marker34);
+    });
+    
+    google.maps.event.addListener(marker45, 'click', function() {
+    	infowindow45.open(map,marker45);
+    });
+    
+  
+    
+    google.maps.event.addListener(marker49, 'click', function() {
+    	infowindow49.open(map,marker49);
+    });
+    
+    google.maps.event.addListener(marker56, 'click', function() {
+    	infowindow56.open(map,marker56);
+    });
+    
+    google.maps.event.addListener(marker57, 'click', function() {
+    	infowindow57.open(map,marker57);
+    });
+    
+   
+
+ 
+    
+    
+    
+
+    
+    
+  }
+
+</script>
+</head>
+<body onload="initialize()">
+
+  <div id="map_canvas" style="width:100%; height:100%"></div>
+</body>
+
+</f:view>
+</html>

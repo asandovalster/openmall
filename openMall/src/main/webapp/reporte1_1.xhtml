@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+         <script type="text/javascript">
+		
+		 function launch(cal){
+			 
+			 document.form0.submit();
+		 }
+		
+		
+		
+		</script>
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+					
+				
+			</div>	
+			<div id="psdg-header11" style="align:center;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+			<h:form id="form0">
+		<p:panel header="Seleccione Fecha Venta" collapsed="false">	
+		
+						<p:growl id="growl0" showDetail="true"/>
+							
+							
+							<h:panelGrid columns="2" cellspacing="10px" cellpadding="10px" style="border:1px;margin-left:0px;width:500px;align-font:left">  
+				                        <p:calendar readOnlyInputText="true"  pattern="dd-MM-yyyy" effect="explode" id="dfecha" value="#{tableHourBean.dfecha}" 
+				                        valueChangeListener="#{tableHourBean.valueChangeCalendar}" style="width:300px;top:0px" >
+				                             <p:ajax event="dateSelect"  update="posTable" />
+				                        </p:calendar>
+				               
+				                        <p:commandButton icon="ui-icon-search" value="Filtrar" type="Submit" 
+				                        action="#{tableHourBean.goReporte11}"    
+				                        update="growl0" rendered="false" style="width:200px;top:0px"/>   
+							
+				            </h:panelGrid>
+			
+		
+		</p:panel>	
+		
+			
+		<p:panel header="Reporte Ventas x Hora Resumen" collapsed="false">	
+		<p:growl id="growl" showDetail="true" sticky="true"/>
+			
+    <p:dataTable resizableColumns="false" id="posTable" var="pos" value="#{tableHourBean.pos}" 
+    style="margin:0px;width:100%;"  >
+    
+        <f:facet name="header">
+            Metas/Ventas/Horas x Local
+        </f:facet>
+
+        <p:columnGroup type="header" style="margin:0px;width:100%">
+        
+            <p:row>
+                
+                
+                <p:column rowspan="2" headerText="Locales" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableHourBean.fechaC}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="13:00" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="15:00" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="18:00" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="23:00" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="(%)" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+            <p:row>
+           		
+                <p:column headerText="Metas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Avance" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+            </p:row>
+        </p:columnGroup>
+	<p:subTable var="venta" value="#{pos.ventas}"  >		
+	    
+	     
+	    <f:facet name="header" style="width:16px">
+	          #{pos.posicion}
+	    </f:facet>
+	    
+	    
+	    <p:column  sortBy="#{venta.local}" filterBy="#{venta.local}">
+       		<f:facet name="header">  
+                    #{venta.local}  
+            </f:facet>  
+           <h:outputText value="#{venta.local}"  style="text-align:center;font: 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+          
+        </p:column>
+
+        <p:column sortBy="#{venta.metas}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.metas}  
+            </f:facet>  
+                <h:outputText value="#{venta.metas}" style="text-align:center;#{venta.metas le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0"  currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+        <p:column  sortBy="#{venta.ventas13}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.ventas13}  
+            </f:facet>  
+            <h:outputText value="#{venta.ventas13}" style="text-align:center;#{venta.ventas13 le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+         <p:column sortBy="#{venta.ventas15}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.ventas15}  
+            </f:facet>  
+            <h:outputText value="#{venta.ventas15}" style="text-align:center;#{venta.ventas15 le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+
+         <p:column sortBy="#{venta.ventas18}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.ventas18}  
+            </f:facet>  
+            <h:outputText value="#{venta.ventas18}" style="text-align:center;#{venta.ventas18 le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+        
+        
+        
+         <p:column sortBy="#{venta.ventas23}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.ventas23}  
+            </f:facet>  
+            <h:outputText value="#{venta.ventas23}" style="text-align:center;#{venta.ventas23 le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+        
+         <p:column sortBy="#{venta.avance}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:facet name="header">  
+                    #{venta.avance}  
+            </f:facet>  
+          <h:outputText value="#{venta.avance}" style="text-align:center;">
+        	<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="0"/>
+            </h:outputText>
+        </p:column>
+        
+        <p:columnGroup type="footer" style="margin:0px;width:100%"> 
+			<p:row>
+				<p:column footerText="Sub-Total:" style="margin:0;text-align:left;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.smetasTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.sventas13Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.sventas15Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.sventas18Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.sventas23Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+				<p:column footerText="#{pos.savanceTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px;"/>
+			</p:row>        
+        </p:columnGroup>
+        
+        
+        </p:subTable>
+		
+		
+		 <p:columnGroup type="footer" style="margin:0px;width:100%"> 
+			<p:row>
+				<p:column footerText="Total:" />
+				<p:column footerText="#{tableHourBean.smetasTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableHourBean.sventas13Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableHourBean.sventas15Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableHourBean.sventas18Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableHourBean.sventas23Total}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableHourBean.savanceTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+			</p:row>             
+        </p:columnGroup>
+		
+		
+    </p:dataTable>
+   </p:panel>
+</h:form>
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+</f:view>

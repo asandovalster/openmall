@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="2.1"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+	<name>openmall</name>
+
+
+	<managed-bean>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-name>UserBean</managed-bean-name>
+		<managed-bean-class>cl.openti.openmall.bean.UserBean</managed-bean-class>
+	</managed-bean>
+
+
+	<context-param>
+        <param-name>primefaces.mobile.THEME</param-name>
+        <!--  param-value>southstreet</param-value-->
+        <param-value>bootstrap</param-value>
+  </context-param>
+
+	<application>
+		<default-render-kit-id>PRIMEFACES_MOBILE</default-render-kit-id>
+	</application>
+	
+	
+	<navigation-rule>
+    <from-view-id>/logon.xhtml</from-view-id>
+    <navigation-case>
+        <from-outcome>success</from-outcome>
+        <to-view-id>/main.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+        <from-outcome>error</from-outcome>
+        <to-view-id>/logon.xhtml</to-view-id>
+    </navigation-case>
+	</navigation-rule>
+	
+		
+	
+	
+	
+</faces-config>

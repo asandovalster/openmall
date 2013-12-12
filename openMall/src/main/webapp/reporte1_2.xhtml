@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+		
+		<script type="text/javascript">
+		
+		 function launch(){
+			 document.form0.submit();
+		 }
+		
+		
+		
+		</script>
+
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+				
+			</div>	
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>	
+			
+			
+		<h:form id="form0">	
+		<p:panel header="Seleccione Fecha Venta" collapsed="false">	
+		
+		
+						<p:growl id="growl0" showDetail="true"/>
+							
+							
+							<h:panelGrid columns="2" cellspacing="10px" cellpadding="10px" style="border:1px;margin-left:0px;width:500px;align-font:left">  
+				                        <p:calendar readOnlyInputText="true"  pattern="dd-MM-yyyy" effect="explode" id="dfecha" 
+				                         value="#{tableHourLocalBean.dfecha}" 
+				                        valueChangeListener="#{tableHourLocalBean.valueChangeCalendar}" 
+				                        style="width:300px;top:0px" >
+				                             <p:ajax event="dateSelect" listener="#{tableHourLocalBean.handleDateSelect}" update="ventasHoraTable" oncomplete="launch()"/>
+				                        </p:calendar>
+				                       
+				                        <p:commandButton icon="ui-icon-search" value="Filtrar" type="Submit" 
+				                        action="#{tableHourLocalBean.goReporte12}"    
+				                        update="ventasHoraTable" rendered="false" style="width:200px;top:0px"/>   
+							
+				            </h:panelGrid>
+			
+		
+		</p:panel>	
+		
+			
+				
+			
+		<p:panel header="Reporte Ventas x Hora Detalle" collapsed="false">	
+			
+			
+			<p:growl id="growl" showDetail="true" sticky="true"/>
+			
+    <p:dataTable id="ventasHoraTable" var="ventah" resizableColumns="false"  value="#{tableHourLocalBean.ventashora}" 
+    style="margin:0px;width:100%"  >
+
+        
+        <f:facet name="header">
+            Metas/Ventas/Avance of Locales x Fecha x Hora
+        </f:facet>
+
+        <p:columnGroup type="header" style="margin:0px;width:100%">
+        
+            <p:row>
+                
+                <p:column colspan="1" headerText="Sel." style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column rowspan="4" headerText="Hora Venta" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableHourLocalBean.fechaC}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableHourLocalBean.fecha}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                 <p:column colspan="1" headerText="(%)" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+            <p:row>
+           		<p:column headerText="Exp." style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Metas Total"  style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas Total" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Avance Total" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+        </p:columnGroup>
+			
+        
+         <f:facet name="header">
+                        Expand rows to see detailed information
+         </f:facet>
+
+		<p:column style="width:4%">
+        	<p:rowToggler />
+        </p:column>	
+			
+        <p:column sortBy="#{ventah.hora}" filterBy="#{ventah.hora}" >
+       		<f:facet name="header">  
+                    #{ventah.hora}  
+            </f:facet>  
+           <h:outputText value="#{ventah.hora}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;" />
+        	
+          
+        </p:column>
+
+        <p:column style="text-align:center"  sortBy="#{ventah.metas}">
+        	<f:facet name="header">  
+                    #{ventah.metas}  
+            </f:facet>  
+                <h:outputText value="#{ventah.metas}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;#{ventah.metas le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center" sortBy="#{ventah.ventas}">
+        	<f:facet name="header">  
+                    #{ventah.ventas}  
+            </f:facet>  
+            <h:outputText value="#{ventah.ventas}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;#{ventah.ventas le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="$ ###,###,##0" currencySymbol="$" />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center" sortBy="#{ventah.avance}">
+        	<f:facet name="header">  
+                    #{ventah.avance}  
+            </f:facet>  
+          <h:outputText value="#{ventah.avance}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="0"/>
+            </h:outputText>
+        </p:column>
+
+      
+      
+         <p:rowExpansion id="idlocalTable">  
+          
+  					<p:panel header=" " collapsed="true">	
+  						  						 
+  					<p:dataTable resizableColumns="false"  id="localTable" var="loc" value="#{ventah.locales}" 
+  					style="margin:0px;width:100%;height:100%;" 
+  					selection="#{tableHourLocalBean.horaSelected}" pagination="false"  
+  					>
+
+
+   								  <p:column style="width:90px;text-align:left;" sortBy="#{loc.local}" filterBy="#{loc.local}">
+							       		<f:facet name="header">  
+							                    Locales  
+							            </f:facet>  
+							            <h:outputText style="font: 12px Arial, Helvetica, sans-serif;" value="#{loc.local}"/>
+							        </p:column>
+							
+							        <p:column style="width:90px;text-align:center;"  sortBy="#{loc.metas}">
+							        	<f:facet name="header">  
+							                  Metas
+							            </f:facet>  
+							                <h:outputText  value="#{loc.metas}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{loc.metas le 0 ? 'color:#ff0000;' : null}">
+							        	<f:convertNumber type="currency" pattern="$ ###,###,##0"  currencySymbol="$" />
+							            </h:outputText>
+							        </p:column>
+							
+							        <p:column style="width:90px;text-align:center"  sortBy="#{loc.ventas}">
+							        	<f:facet name="header">  
+							                    Ventas
+							            </f:facet>  
+							            <h:outputText value="#{loc.ventas}" 
+							            style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{loc.ventas le 0 ? 'color:#ff0000;' : null};">
+							        	<f:convertNumber type="currency" pattern="$ ###,###,##0" currencySymbol="$" />
+							            </h:outputText>
+							        </p:column>
+							
+							        <p:column style="width:90px;text-align:center" sortBy="#{loc.avance}">
+							        	<f:facet name="header">  
+							                    Avance
+							            </f:facet>  
+							          <h:outputText value="#{loc.avance}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;">
+							        	<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="0"/>
+							            </h:outputText>
+							        </p:column>
+
+        <p:columnGroup type="footer" style="text-align:right;margin:0px;width:100%;"> 
+			<p:row>
+				<p:column footerText="Total:" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{ventah.smetas}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{ventah.sventas}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{ventah.savance}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+			</p:row>             
+        </p:columnGroup>
+                  				 
+       							   
+   					 </p:dataTable>
+  
+  	   
+       						
+					 
+  
+  				
+			 		</p:panel>
+			 		
+  
+        </p:rowExpansion>  
+       
+       
+
+       
+
+    </p:dataTable>
+    
+    
+    
+
+    
+	
+</p:panel>
+</h:form>
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+</f:view>

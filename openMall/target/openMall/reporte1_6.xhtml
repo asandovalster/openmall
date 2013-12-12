@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+   <h:head>
+			<link rel="shortcut icon" href="http://www.hites.cl/cms/sites/default/files/hites_favicon.png" type="image/x-icon" />
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript" src="/openmall/faces/javax.faces.resource/common.js?ln=js">
+		</script>
+
+	</h:head>
+
+	<pm:page
+		title="HiNet Mobile - mobile.hites.cl">
+		<pm:view id="viewChapter1">
+		    <div id="psdg-header">
+				<p:graphicImage value="images/logo_hites_mobile.png"  width="250" height="100"/>  
+				
+			</div>	
+			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
+					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
+			</div>	
+			 	<pm:navBar>
+				
+				<p:button value="Volver" icon="back" href="main.xhtml"
+					styleClass="ui-btn-active" />
+					
+					
+			</pm:navBar>		
+			
+		<p:panel header="Reporte Metas - Hora" collapsed="false">	
+			
+			<h:form id="form">
+			
+			<p:growl id="growl" showDetail="true" sticky="true"/>
+			
+    <p:dataTable id="metasTable" resizableColumns="false" var="meta" value="#{tableBean.metas}" 
+    style="margin:0px;"  >
+        
+        <f:facet name="header">
+            Metas de Locales x Hora
+        </f:facet>
+           <p:columnGroup type="header" style="margin:0px;width:100%">
+        
+            <p:row>
+                
+                <p:column colspan="1" headerText="Sel" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column rowspan="4" headerText="Locales" style="width:190px;margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableBean.fechaC}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                <p:column colspan="1" headerText="#{tableBean.fecha}" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+                 <p:column colspan="1" headerText="" style="margin:0px;font: 12px bold Arial, Helvetica, sans-serif;"/>
+            </p:row>
+            <p:row>
+           		<p:column headerText="Exp" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Metas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Ventas" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+                <p:column headerText="Avance" style="margin:0px;font: 12px  Arial, Helvetica, sans-serif;"/>
+            </p:row>
+        </p:columnGroup>
+			
+			
+		 <p:column style="width:30px">  
+            <p:rowToggler id="localT"/>  
+        </p:column>  	
+			
+        <p:column sortBy="#{meta.local}" filterBy="#{meta.local}" style="font: 10px Arial, Helvetica, sans-serif;">
+       		<f:facet name="header">  
+                    #{meta.local}  
+            </f:facet>  
+           <h:outputText value="#{meta.local}" style="text-align:center;font: 12px Arial, Helvetica, sans-serif;"/>
+        	
+          
+        </p:column>
+
+        <p:column style="text-align:center"  sortBy="#{meta.unidades}">
+        	<f:facet name="header">  
+                    #{meta.unidades}  
+            </f:facet>  
+                <h:outputText value="#{meta.unidades}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{meta.unidades le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="####0"   />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center"  sortBy="#{meta.boletas}">
+        	<f:facet name="header">  
+                    #{meta.boletas}  
+            </f:facet>  
+                <h:outputText value="#{meta.boletas}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;#{meta.boletas le 0 ? 'color:#ff0000;' : null}">
+        	<f:convertNumber type="currency" pattern="####0"   />
+            </h:outputText>
+        </p:column>
+
+        <p:column style="text-align:center" sortBy="#{meta.ventas}">
+        	<f:facet name="header">  
+                    #{meta.ventas}  
+            </f:facet>  
+          <h:outputText value="#{meta.ventas}" style="text-align:right;font: 12px Arial, Helvetica, sans-serif;">
+        	<f:convertNumber type="percent"  maxIntegerDigits="4" maxFractionDigits="0"/>
+            </h:outputText>
+        </p:column>
+
+         <p:rowExpansion id="idareaTable" style="margin:0px;width:100%;">  
+          
+  			<p:panel header=" " collapsed="true" style="margin:0px;width:100%;">	
+  						  						 
+  					
+  				 
+  			<p:dataTable id="metaTable" var="me" value="#{meta.modelMetas}" 
+  			style="margin:0px;width:100%;" selection="#{tableBean.metaSelected}" pagination="false"  
+  			resizableColumns="false" selectionMode="single" rowKey="#{me.id_local}">
+  
+  			
+  								  <!--   <p:ajax event="rowSelect" update=":form:growl"  listener="#{tableBean.onRowSelect}" />  
+       								<p:ajax event="rowUnselect" update=":form:growl" listener="#{tableBean.onRowUnselect}"  />  
+        							
+        							<f:facet name="header">
+        							     #{meta.local}
+        							</f:facet>
+   									 -->
+   									
+   									
+   									<p:column sortBy="#{me.hh}" style="margin:0px;width:250px;font: 12px Arial, Helvetica, sans-serif;">  
+                						<f:facet name="header">  
+                  						 <h:outputText value="Hora" />  
+                						</f:facet>  
+                						<h:outputText value="#{me.hh}" />
+            						</p:column>  
+   									
+   									
+   									<p:column sortBy="#{me.unidades}" style="margin:0px;width:250px;font: 12px Arial, Helvetica, sans-serif;">  
+                						<f:facet name="header">  
+                  						 <h:outputText value="Unidades" />  
+                						</f:facet>  
+                						<h:outputText value="#{me.unidades}" />
+            						</p:column>  
+  							     
+  							     <p:column sortBy="#{me.boletas}" style="margin:0px;width:250px;font: 12px Arial, Helvetica, sans-serif;">  
+                						<f:facet name="header">  
+                  						 <h:outputText value="Boletas" />  
+                						</f:facet>  
+                						<h:outputText value="#{me.boletas}" />
+            						</p:column>  
+  							     
+  							     
+  							     <p:column sortBy="#{me.monto}" style="text-align:center;margin:0px;width:150px;font: 12px Arial, Helvetica, sans-serif;">
+        							<f:facet name="header">  
+                  						 <h:outputText value="Monto Neto" style="#{me.monto le 0 ? 'color:#ff0000;' : null}"/>  
+                						</f:facet>  
+         						   <h:outputText value="#{ar.monto}">
+        							<f:convertNumber type="currency" pattern="$###,###,##0"  currencySymbol="$" />
+           						 	</h:outputText>
+       							 </p:column>	 
+       							
+                  				 
+       							   
+   					 </p:dataTable>
+  
+  	   
+       						
+					 
+  
+  				
+			 		</p:panel>
+  
+        </p:rowExpansion>  
+       
+       
+
+	<!-- 	<p:columnGroup type="footer" style="text-align:right;margin:0px;width:100%;"> 
+			<p:row>
+				<p:column footerText=" " style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>/>
+				<p:column footerText="Total:" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>/>
+				<p:column footerText="#{tableBean.smetasTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableBean.sventasTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+				<p:column footerText="#{tableBean.savanceTotal}" style="text-align:center;font: bold 12px Arial, Helvetica, sans-serif;padding: 0px"/>
+			</p:row>             
+        </p:columnGroup> -->
+
+      
+
+    </p:dataTable>
+    
+    
+    
+
+    
+</h:form>	
+</p:panel>
+	</pm:view>
+	<h:form id="f2">
+		
+				<p:dialog header="Lo siento, Su session ha expirado!"
+						widgetVar="timeoutDialog" showEffect="fade" hideEffect="fade"
+						modal="true" width="600" height="100" closable="false"
+						draggable="false" resizable="false" appendToBody="true">
+						<br />
+						<span class="ui-icon ui-icon-alert"
+							style="float: left; margin: 0 7px 50px 0;"></span>
+						<div>
+							Sera derivado a la ventana de Login en <span
+								id="dialog-countdown" style="font-weight: bold"></span>
+							segundos.
+						</div>
+						<br />
+						<p:commandButton value="Volver a Login"
+							action="#{userBean.logout}" />
+					</p:dialog>
+		
+		</h:form>
+	
+	</pm:page>
+</f:view>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script
+	src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
+<script>
+	$(function() {
+		$("#btn_ajax").on("click", function() {
+			$.ajax({
+				url : 'test3.html',
+				dataType : "html",
+				success : function(result) {
+					$("#foo").html(result);
+				}
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<div data-role="page">
+		<center>
+			<div data-role="header">
+				<h1>Ajax Jquery Mobile</h1>
+			</div>
+			<div data-role="content">
+				<div data-role="controlgroup" data-type="horizontal">
+					<input type="button" id="btn_ajax" data-role="button"
+						data-icon="star" data-iconpos="left" data-theme="a"
+						data-mini="true" value="Cargar Ajax">
+				</div>
+				<div id="foo"></div>
+			</div>
+			<div data-role="footer">
+				<h1>PIE DE PÁGINA</h1>
+			</div>
+		</center>
+	</div>
+</body>
+</html>

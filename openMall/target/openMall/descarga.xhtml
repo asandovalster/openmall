@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" contentType="text/html">
+
+	<h:head>
+		<link rel="shortcut icon" href="images/logo_ico.png" type="image/x-icon" />
+		
+		
+	</h:head>
+
+	<pm:page title="::: Descarga la aplicaci&oacute;n Open Mall :::">
+
+
+
+ 
+		<pm:view id="viewProductividad" swatch="e">
+		
+	
+	 		<div id="psdg-header">
+		  
+		    	<p:graphicImage value="images/android_logo.png" width="100%" heigth="100%"/>  
+				 
+			</div>
+	
+			<!-- <pm:header title="Bienvenido a Descarga OPENMALL" swatch="b"/> -->
+			<pm:content>
+				<h:form>
+							  		
+					    <p:commandButton id="downloadLink" value="Descárgalo AQUÍ" ajax="false" 
+					        onclick="PrimeFaces.monitorDownload(start, stop)"   
+					    	icon="ui-icon-arrowthichk-s">  
+    						<p:fileDownload value="#{userBean.dFile}" />  
+						</p:commandButton>  
+  
+					    
+				</h:form>
+				
+				
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+
+function stop() {
+    PF('statusDialog').hide();
+}
+        </script>
+                    
+		
+			</pm:content>
+		</pm:view> 
+
+	</pm:page>
+</f:view>

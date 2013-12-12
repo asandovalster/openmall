@@ -1,0 +1,17 @@
+<Context>
+ 
+  <!--   <Resource name="jdbc/ConexMysql" auth="Container" type="javax.sql.DataSource"
+               username="root"
+               password="kR2CssK6" 
+               driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://68.169.50.24:3306/mysql"
+               maxActive="15" maxIdle="10"/>  --> 
+                
+    <Resource name="jdbc/ConexMysql" auth="Container" type="javax.sql.DataSource"
+               username="root"
+               password="admin" 
+               driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/mysql"
+               maxActive="15" maxIdle="10"/>             
+               
+</Context>
