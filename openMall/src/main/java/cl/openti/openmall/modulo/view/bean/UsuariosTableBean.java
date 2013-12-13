@@ -10,7 +10,8 @@ import cl.openti.openmall.modulo.model.bean.UsuarioBean;
 public class UsuariosTableBean implements Serializable {
 
 	/**
-	 * 
+	 * jueves 12 ultimo cambio probando 
+	 * github en hangout 
 	 */
 	private static final long serialVersionUID = -8300872487067362418L;
 	private List<UsuarioBean> usuarios;
