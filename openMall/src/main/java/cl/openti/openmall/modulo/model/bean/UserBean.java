@@ -24,9 +24,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cl.openti.openmall.modulo.exception.OpenTIException;
-import cl.openti.openmall.modulo.model.datamodel.PerfilDataModel;
-import cl.openti.openmall.modulo.model.datamodel.RolDataModel;
-import cl.openti.openmall.modulo.model.datamodel.UsuarioDataModel;
 import cl.openti.openmall.modulo.service.IBusinessService;
 import cl.openti.openmall.modulo.view.bean.PerfilesTableBean;
 import cl.openti.openmall.modulo.view.bean.RolesTableBean;
@@ -41,7 +38,7 @@ import java.util.Date;
 import java.util.Properties;
 
 @ManagedBean(name = "userBean")
-@SessionScoped
+@RequestScoped
 public class UserBean implements Serializable {
 
 	/**
@@ -104,12 +101,6 @@ public class UserBean implements Serializable {
 
 	protected String iframeUrl = "";
 	private DatosUsuarioBean datos = new DatosUsuarioBean();
-
-	private MeterGaugeChartModel meterGaugeModel = new MeterGaugeChartModel();
-	private long ventaGeneralGauge = 0;
-	private PieChartModel pieModel = new PieChartModel();;
-    private CartesianChartModel categoryModel = new CartesianChartModel(); 
-    
     
     private String companyName="company Name";
     private String companyAddressHTML = "companyAddressHTML";
@@ -121,7 +112,6 @@ public class UserBean implements Serializable {
     private ZonaBean zonabean = new ZonaBean();
 	
 	
-    
 	private Date dfecha;
 	
 	
@@ -142,14 +132,12 @@ public class UserBean implements Serializable {
 	PerfilesTableBean perfilesTable = new PerfilesTableBean();
 	RolesTableBean rolesTable = new RolesTableBean();
 	UsuariosTableBean usuariosTable = new UsuariosTableBean();
-    TableHourBean tableHourBean ;
 	
 	/**
 	 * Model
 	 */
 	private PerfilBean perfil = new PerfilBean();
 	private PerfilBean perfilselected = new PerfilBean();
-	private PerfilDataModel perfilModel = new PerfilDataModel();
 	/**
 	 * Tree Perfil
 	 */
@@ -158,12 +146,10 @@ public class UserBean implements Serializable {
 
 	private RolBean rol = new RolBean();
 	private RolBean rolselected = new RolBean();
-	private RolDataModel rolModel = new RolDataModel();
-
+	
 	private UsuarioBean usuario = new UsuarioBean();
 	private UsuarioBean usuarioselected = new UsuarioBean();
-	private UsuarioDataModel usuarioModel = new UsuarioDataModel();
-
+	
 	public String getName() {
 		return name;
 	}
@@ -214,6 +200,9 @@ public class UserBean implements Serializable {
 			ApplicationContext beanFactory = new ClassPathXmlApplicationContext("bean_configuration.xml",this.getClass());
 			
 			IBusinessService proxy = (IBusinessService) beanFactory.getBean("proxyGestor");
+			
+			
+			// proxy.validarLogin();
 			
 			proxy.loadUser(this);
 
@@ -527,42 +516,7 @@ public class UserBean implements Serializable {
 	}
 	
 
- public String goReporte3() {
-	 
-	 log.debug("goReporte3..........");
-
-		ApplicationContext beanFactory = new ClassPathXmlApplicationContext("bean_configuration.xml",this.getClass());
-		
-		IBusinessService proxy = (IBusinessService) beanFactory.getBean("proxyGestor");
-		try {
-		// Se audita llamada
-			proxy.loadBarra(categoryModel);
-		} catch (Exception e) {
-					e.printStackTrace();
-		}
-		url = "reporte3.xhtml";
-	 
-		return url + "?faces-redirect=true";
- }
-public String goReporte4() {
-	 
-	 log.debug("goReporte4..........");
-
-		ApplicationContext beanFactory = new ClassPathXmlApplicationContext("bean_configuration.xml",this.getClass());
-		
-		IBusinessService proxy = (IBusinessService) beanFactory.getBean("proxyGestor");
-		try {
-		// Se audita llamada
-			proxy.loadPie(pieModel);
-		} catch (Exception e) {
-					e.printStackTrace();
-		}
-		url = "reporte4.xhtml";
-	 
-		return url + "?faces-redirect=true";
- }
-	
-
+ 
 
 	public void setIframeUrl(String iframeUrl) {
 		this.iframeUrl = iframeUrl;
@@ -637,14 +591,6 @@ public String goReporte4() {
 		this.perfilselected = perfilselected;
 	}
 
-	public PerfilDataModel getPerfilModel() {
-		return perfilModel;
-	}
-
-	public void setPerfilModel(PerfilDataModel perfilModel) {
-		this.perfilModel = perfilModel;
-	}
-
 	public TreeNode getRoot() {
 		return root;
 	}
@@ -677,14 +623,6 @@ public String goReporte4() {
 		this.rolselected = rolselected;
 	}
 
-	public RolDataModel getRolModel() {
-		return rolModel;
-	}
-
-	public void setRolModel(RolDataModel rolModel) {
-		this.rolModel = rolModel;
-	}
-
 	public UsuarioBean getUsuario() {
 		return usuario;
 	}
@@ -700,15 +638,6 @@ public String goReporte4() {
 	public void setUsuarioselected(UsuarioBean usuarioselected) {
 		this.usuarioselected = usuarioselected;
 	}
-
-	public UsuarioDataModel getUsuarioModel() {
-		return usuarioModel;
-	}
-
-	public void setUsuarioModel(UsuarioDataModel usuarioModel) {
-		this.usuarioModel = usuarioModel;
-	}
-
 	private void clear() {
 
 		this.name = "";
@@ -721,38 +650,6 @@ public String goReporte4() {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public MeterGaugeChartModel getMeterGaugeModel() {
-		return meterGaugeModel;
-	}
-
-	public void setMeterGaugeModel(MeterGaugeChartModel meterGaugeModel) {
-		this.meterGaugeModel = meterGaugeModel;
-	}
-
-	public PieChartModel getPieModel() {
-		return pieModel;
-	}
-
-	public void setPieModel(PieChartModel pieModel) {
-		this.pieModel = pieModel;
-	}
-
-	public CartesianChartModel getCategoryModel() {
-		return categoryModel;
-	}
-
-	public void setCategoryModel(CartesianChartModel categoryModel) {
-		this.categoryModel = categoryModel;
-	}
-
-	public long getVentaGeneralGauge() {
-		return ventaGeneralGauge;
-	}
-
-	public void setVentaGeneralGauge(long ventaGeneralGauge) {
-		this.ventaGeneralGauge = ventaGeneralGauge;
 	}
 
 	public String getUrl2() {
@@ -779,13 +676,6 @@ public String goReporte4() {
 		this.dfecha = dfecha;
 	}
 
-	public TableHourBean getTableHourBean() {
-		return tableHourBean;
-	}
-
-	public void setTableHourBean(TableHourBean tableHourBean) {
-		this.tableHourBean = tableHourBean;
-	}
 	public void loadfecha(ActionEvent evt){
 		
 		    //System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+((Calendar) evt.getComponent()).getValue());
@@ -1155,8 +1045,6 @@ public String goReporte4() {
 	public void setPassword2(String password2) {
 		this.password2 = password2;
 	}
-	
-	
 	
 	
 	

@@ -42,7 +42,49 @@
             	styleClass="ui-btn-active"/>
             	<p:button value="Productos" icon="search" href="#main?reverse=true"
                      />
-            	<p:button value="Tiendas" icon="star" href="#main?reverse=true"
+            	<p:button value="Tiendas" icon="star" href="#tienda?reverse=true"
+                     />
+            	<p:button value="Ubicacion" icon="map" href="./map.xhtml"
+                     />
+                <p:button value="Profile" icon="gear" href="#main?reverse=true"
+                     />     
+         	</pm:navBar>
+			
+			
+				
+              
+  			</pm:content>
+		</pm:view>
+		
+		
+		<pm:view id="map" swatch="e">
+ 			<pm:header title="#{userBean.datos.nombres} #{userBean.datos.apellidos}" swatch="b">
+ 			
+ 				<f:facet name="left">
+ 					<p:button value="Salir" icon="back" href="./logon.xhtml" />
+ 				</f:facet>
+ 				
+ 				<f:facet name="right">
+ 					<p:button value="Profile" icon="gear" href="#viewTrafico" />
+ 				</f:facet>
+
+ 			
+            </pm:header>
+			<!-- <h:outputScript library="js" name="common.js" /> -->
+			<div id="psdg-header">
+				<p:graphicImage value="images/logo.png"  width="250" height="100"/>  
+				
+			</div>
+		
+			<pm:content>
+			
+			<pm:navBar>
+            	<p:button value="Búsqueda" icon="search" href="#main?reverse=true" 
+            	/>
+            	<p:button value="Productos" icon="search" href="#main?reverse=true"
+                     />
+            	<p:button value="Tiendas" icon="star" href="#tienda?reverse=true"
+            	styleClass="ui-btn-active"
                      />
             	<p:button value="Profile" icon="gear" href="#main?reverse=true"
                      />
@@ -53,6 +95,8 @@
               
   			</pm:content>
 		</pm:view>
+		
+		
 		
 		<pm:view id="viewTrafico">
 			<div id="psdg-header">

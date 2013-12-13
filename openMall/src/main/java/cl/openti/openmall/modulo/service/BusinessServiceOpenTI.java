@@ -11,16 +11,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import cl.openti.openmall.modulo.dao.IManagerDAO;
 import cl.openti.openmall.modulo.exception.OpenTIException;
 import cl.openti.openmall.modulo.model.bean.DatosUsuarioBean;
-import cl.openti.openmall.modulo.model.bean.MeterGaugeChart;
-import cl.openti.openmall.modulo.model.bean.TableBean;
-import cl.openti.openmall.modulo.model.bean.TableCDABean;
-import cl.openti.openmall.modulo.model.bean.TableDsctoGarantiaDeptoBean;
-import cl.openti.openmall.modulo.model.bean.TableDsctoSuperBean;
-import cl.openti.openmall.modulo.model.bean.TableHourBean;
-import cl.openti.openmall.modulo.model.bean.TableHourLocalBean;
 import cl.openti.openmall.modulo.model.bean.UserBean;
 import cl.openti.openmall.modulo.model.bean.ZonaBean;
-
 
 
 public class BusinessServiceOpenTI implements IBusinessService, Serializable {
@@ -61,25 +53,6 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	}
 	
 	@Override
-	public void loadArchivos(TableCDABean cda) throws OpenTIException {
-		// TODO Auto-generated method stub
-		
-		try {
-			
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadArchivos(cda);
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-	@Override
 	public void loadUser(UserBean user) throws OpenTIException {
 		
 		try {
@@ -118,224 +91,6 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 
-	@Override
-	public void loadVentas(TableBean table) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("loadVentas");
-			log.debug("loadVentas");
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadVentas( table );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-	
-	@Override
-	public void loadVentas(TableCDABean table) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("loadVentas");
-			log.debug("loadVentas");
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadVentasCDA( table );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-	
-	
-	@Override
-	public void loadMetas(TableBean table) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("loadMetas");
-			log.debug("loadMetas");
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadMetas( table );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-	
-	
-	
-	
-	public void loadVentasHora(TableHourLocalBean table) throws OpenTIException{
-		
-				try {
-					System.out.println("loadVentasHora");
-					log.debug("loadVentas");
-					ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-							"bean_configuration.xml", this.getClass());
-					IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-					dao.loadVentasHora( table );
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-				}
-				
-				log.debug("Finalizando la capa de Servicio");
-		
-	}
-	
-	
-	
-    /**
-     * Carga del Ranking Supervisor
-     */
-	public void loadRankingSupervisor(TableDsctoSuperBean table) throws OpenTIException{
-		
-				try {
-					
-					ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-							"bean_configuration.xml", this.getClass());
-					IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-					dao.loadRankingSupervisor( table );
-					
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-				}
-				
-				log.debug("Finalizando la capa de Servicio");
-		
-	}
-	
-	
-	public void loadGarantiaExtendida(TableDsctoGarantiaDeptoBean table) throws OpenTIException{
-		
-		try {
-			
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadGarantiaExtendida( table );
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-
-}
-	
-	/**
-	 * Servicio de carga de las garantias extendidas en el Aread de Seguros.
-	 */
-//	@Override
-//	public void loadGarantiasExtendidas(TableGarantiaExtendidaBean table)
-//			throws OpenTIException {
-//
-//
-//		try {
-//			
-//			UsuarioDAO.getInstance().loadRankingSupervisor( table );
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-//		}
-//		
-//		log.debug("Finalizando la capa de Servicio");
-//		
-//		
-//	}
-	
-	
-	@Override
-	public void loadMedidor(MeterGaugeChart bean) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("loadVentas");
-			log.debug("loadVentas");
-			
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadMedidor( bean );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-		
-	
-	
-	@Override
-	public void loadPie(PieChartModel pie) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			System.out.println("loadVentas");
-			log.debug("loadVentas");
-			
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadPie( pie );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-	
-	
-	@Override
-	public void loadBarra(CartesianChartModel  category) throws OpenTIException {
-		// TODO Auto-generated method stub
-		try {
-			
-			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-					"bean_configuration.xml", this.getClass());
-			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-			dao.loadBarra( category );
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-		}
-		
-		log.debug("Finalizando la capa de Servicio");
-	}
-
-	@Override
-	public void loadVentas(TableHourBean table) throws OpenTIException {
-		// TODO Auto-generated method stub
-				try {
-					System.out.println("BusinessServiceHites.loadVentas:"+table.getDfecha());
-					log.debug("loadVentas");
-					
-					ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
-							"bean_configuration.xml", this.getClass());
-					IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
-					dao.loadVentas( table );
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
-				}
-				
-				log.debug("Finalizando la capa de Servicio");
-		
-	}
 
 	@Override
 	public void loadMap(ZonaBean zona, int cod) throws OpenTIException {
@@ -396,6 +151,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			this.dominio = dominio;
 		}
 
+	
 	
 		
 

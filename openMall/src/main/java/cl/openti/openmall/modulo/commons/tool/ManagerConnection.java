@@ -36,38 +36,4 @@ public class ManagerConnection {
 
 	}
 
-	public Connection getConnection() {
-
-		
-		try {
-			log.debug(">>>3.1::: loadUser getConnection:" );
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/test", "root", "admin");
-			log.debug(">>>3.1::: loadUser getConnection:" +con);
-		
-		} catch (SQLException e) {
-			log.debug(">>>3.1::: loadUser getConnection error:");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return con;
-	}
-
-	public Connection getConnectionP() {
-
-		
-		try {
-			if(con2==null || con2.isClosed())
-				con2 = DriverManager.getConnection(
-						"jdbc:mysql://68.169.50.24:3306/test", "root", "kR2CssK6");
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return con2;
-	}
-
 }
