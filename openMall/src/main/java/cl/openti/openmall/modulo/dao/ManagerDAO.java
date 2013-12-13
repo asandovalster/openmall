@@ -466,11 +466,14 @@ public class ManagerDAO implements IManagerDAO{
 		////////System.out.println(con);
 		try {
 
-			pst = con.prepareStatement("select du.nombres,du.apellidos,u.id_usuario,du.direccion,du.email,du.telefono" +
+			String query = "select du.nombres,du.apellidos,u.id_usuario,du.direccion,du.email,du.telefono" +
 					"from openmall_usuario u ,openmall_datos_usuario du" +
-					" where u.id_usuario = du.id_usuario and u.username = ? and u.password = ?");
+					" where u.id_usuario = du.id_usuario and u.username = ? and u.password = ?";
 					//",openmall_rol r,openmall_cargo c where u.id_usuario = du.id_usuario and u.id_perfil = r.id_rol and c.id = r.id_cargo and u.username = ?");
 
+			pst = con.prepareStatement( query );
+			
+			
 			pst.setString(1, user.getName());
 			pst.setString(2, user.getPassword());
 			

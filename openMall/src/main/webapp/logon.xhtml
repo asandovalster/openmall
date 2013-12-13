@@ -28,20 +28,16 @@
 			</div>	 
 				 	
 	
-			<pm:header title="Ingrese a OpenMall" swatch="b"/>
+			<pm:header title="Por Favor Ingrese" swatch="b"/>
 			<pm:content > 
 				<h:form>
 				<p:messages id="messages" ShowDetail="true" autoUpdate="true"/>
 								
 				<p:panelGrid columns="2" id="logon"  >
 				    <h:outputText value="Usuario:" />
-				    <p:inputText id="name"  value="#{userBean.name}">
-				    <f:validateLongRange minimum="5" maximum="12"/>
-				    </p:inputText>
+				    <p:inputText id="name"  value="#{userBean.name}"/>
 				    <h:outputText  value="Password:"/>
-				    <p:password id="password"  value="#{userBean.password}">
-				       <f:validateLongRange minimum="5" maximum="12"/>
-				    </p:password>
+				    <p:password id="password"  value="#{userBean.password}"/>
 				    
 				    <h:outputText  value=""/>
 				    <p:commandButton value="Entrar" type="Submit"
@@ -49,7 +45,7 @@
 					 <h:outputText  value=""/>	
 					  <h:outputText  value="Ó"/>	
 					   <h:outputText  value=""/>	
-					<p:commandButton value="Es Nuevo?" type="Submit" 
+					<p:commandButton value="Registrarse" type="Submit" 
 						action="#{userBean.goRegister}" update="logon"  ajax="false"/>	
 				</p:panelGrid>		
 				

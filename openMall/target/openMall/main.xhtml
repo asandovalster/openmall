@@ -16,40 +16,44 @@
 	<pm:page title="::: Bienvenido OpenMall Mobile :::">
 
 
-		<pm:view id="navbar" swatch="d">
- 			<pm:header title="Tu Pedido, a tu Casa!" swatch="b">
+		<pm:view id="navbar" swatch="e">
+ 			<pm:header title="#{userBean.datos.nombres} #{userBean.datos.apellidos}" swatch="b">
+ 			
+ 				<f:facet name="left">
+ 					<p:button value="Salir" icon="back" href="./logon.xhtml" />
+ 				</f:facet>
+ 				
+ 				<f:facet name="right">
+ 					<p:button value="Profile" icon="gear" href="#viewTrafico" />
+ 				</f:facet>
+
+ 			
             </pm:header>
 			<!-- <h:outputScript library="js" name="common.js" /> -->
 			<div id="psdg-header">
 				<p:graphicImage value="images/logo.png"  width="250" height="100"/>  
 				
 			</div>
-			<div id="psdg-header11" style="align:right;background-color:#FFD700;">
-					<span class="psdg-bold11">#{userBean.datos.nombres} #{userBean.datos.apellido}</span> / #{userBean.datos.cargo}
-			</div>	
-			
-			
-
+		
 			<pm:content>
 			
-				<p:dataList type="inset">
-                    <f:facet name="header">Restaurantes</f:facet>
-                    <h:form id="form01">
-                    	<p:commandButton value="Il Piacere" action="#{userBean.goRes1}" rendered="true"/>
-                    	<p:commandButton value="El Domo" action="#{userBean.goRes2}" rendered="true"/>
-                    </h:form>
-                    
-                </p:dataList>
-                
-             
-             <h:form id="id0">
-				<f:facet name="header"></f:facet>
-				 <p:commandButton value="Cerrar Session" icon="check" action="#{userBean.logout}"  global="false" />
-			</h:form>
+			<pm:navBar>
+            	<p:button value="Búsqueda" icon="search" href="#main?reverse=true" 
+            	styleClass="ui-btn-active"/>
+            	<p:button value="Productos" icon="search" href="#main?reverse=true"
+                     />
+            	<p:button value="Tiendas" icon="star" href="#main?reverse=true"
+                     />
+            	<p:button value="Profile" icon="gear" href="#main?reverse=true"
+                     />
+         	</pm:navBar>
 			
-             
+			
+				
+              
   			</pm:content>
 		</pm:view>
+		
 		<pm:view id="viewTrafico">
 			<div id="psdg-header">
 				<span class="psdg-bold">OpenMall Mobile</span><br /> Web
