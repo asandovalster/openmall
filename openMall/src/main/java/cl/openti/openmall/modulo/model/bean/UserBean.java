@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.apache.log4j.Logger;
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.TreeNode;
@@ -24,7 +23,7 @@ import org.primefaces.model.chart.PieChartModel;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import cl.openti.openmall.modulo.exception.HitesException;
+import cl.openti.openmall.modulo.exception.OpenTIException;
 import cl.openti.openmall.modulo.model.datamodel.PerfilDataModel;
 import cl.openti.openmall.modulo.model.datamodel.RolDataModel;
 import cl.openti.openmall.modulo.model.datamodel.UsuarioDataModel;
@@ -38,12 +37,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.net.URL;
 import java.util.Date;
 import java.util.Properties;
 
 @ManagedBean(name = "userBean")
-@RequestScoped
+@SessionScoped
 public class UserBean implements Serializable {
 
 	/**
@@ -102,6 +100,8 @@ public class UserBean implements Serializable {
 	@NotNull
 	@Size(min = 5, max = 12, message = "El largo de usuario debe estar entre 5 y 12")
 	protected String password = "";
+	protected String password2 = "";
+
 	protected String iframeUrl = "";
 	private DatosUsuarioBean datos = new DatosUsuarioBean();
 
@@ -211,7 +211,6 @@ public class UserBean implements Serializable {
 	public String logon() {
 		String forward = "fail";
 		try {
-			System.out.println("...---");
 			ApplicationContext beanFactory = new ClassPathXmlApplicationContext("bean_configuration.xml",this.getClass());
 			
 			IBusinessService proxy = (IBusinessService) beanFactory.getBean("proxyGestor");
@@ -220,8 +219,7 @@ public class UserBean implements Serializable {
 
 			log.debug("..::: Autenticacion: usuario"+ this.getName());
 
-			log.debug("::: Autenticacion: password"
-					+ this.getPassword());
+			log.debug("::: Autenticacion: password" + this.getPassword());
 
 			log.debug("::: Autenticacion: datos usuario"
 					+ this.getDatos().getNombres() );
@@ -281,7 +279,7 @@ public class UserBean implements Serializable {
 				forward = "success";
 			}		
 						
-		} catch (HitesException e) {
+		} catch (OpenTIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -289,6 +287,53 @@ public class UserBean implements Serializable {
 		return forward;
 	}
 
+	
+	public String goRegister()
+	{
+		String forward = "registro";
+		
+		
+		return forward;
+	}
+	/**
+	 * Caso de Uso de Regostro de Usuario 
+	 * 
+	 * @return
+	 */
+	public String saveRegister()
+	{
+		String forward = "success";
+		
+		// falta codigo
+		
+		ApplicationContext beanFactory = new ClassPathXmlApplicationContext("bean_configuration.xml",this.getClass());
+		
+		IBusinessService proxy = (IBusinessService) beanFactory.getBean("proxyGestor");
+		
+		try {
+			
+			proxy.saveRegister(this.getDatos());
+			
+			
+		} catch (OpenTIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+		
+		
+		return forward;
+	}
+	
+	public String goMain()
+	{
+		String forward = "main";
+		
+		
+		return forward;
+	}
+	
 	public String logout() {
 		this.clear();
 		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -1099,6 +1144,16 @@ public String goReporte4() {
 
 	public void setRenderedR37(boolean renderedR37) {
 		this.renderedR37 = renderedR37;
+	}
+
+
+	public String getPassword2() {
+		return password2;
+	}
+
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 	
 	

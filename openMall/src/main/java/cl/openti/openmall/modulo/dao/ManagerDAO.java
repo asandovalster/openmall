@@ -466,7 +466,7 @@ public class ManagerDAO implements IManagerDAO{
 		////////System.out.println(con);
 		try {
 
-			pst = con.prepareStatement("select du.nombres,du.apellidos,u.id_usuario" +
+			pst = con.prepareStatement("select du.nombres,du.apellidos,u.id_usuario,du.direccion,du.email,du.telefono" +
 					"from openmall_usuario u ,openmall_datos_usuario du" +
 					" where u.id_usuario = du.id_usuario and u.username = ? and u.password = ?");
 					//",openmall_rol r,openmall_cargo c where u.id_usuario = du.id_usuario and u.id_perfil = r.id_rol and c.id = r.id_cargo and u.username = ?");
@@ -475,19 +475,18 @@ public class ManagerDAO implements IManagerDAO{
 			pst.setString(2, user.getPassword());
 			
 			rs = pst.executeQuery();
+			
 			if (rs.next()) {
 				//////////System.out.println("Acceso a la Base de Datos... ");
 				// Cargamos Nombre, Apellido, Perfil, Email
 				user.getDatos().setNombres(rs.getString("nombres"));
 				user.getDatos().setApellidos(rs.getString("apellidos"));
-//				user.getDatos().setEmail(rs.getString("email"));
-//				user.getDatos().setCargo( rs.getString("nombre") );
-//				user.getPerfil().setNombre(rs.getString("descripcion"));
+				user.getDatos().setEmail(rs.getString("email"));
+				user.getDatos().setDireccion( rs.getString("direccion") );
+				user.getDatos().setTelefono(rs.getString("telefono"));
 				/*************************/
 			}else{
-				//////////System.out.println("NO Acceso a la Base de Datos... ");
-				//////////System.out.println("user:" + user.getName());
-				//////////System.out.println("pass:" + user.getPassword());
+				log.debug("NO Acceso a la Base de Datos... ");
 			}
 		} catch (Exception e) {
 
@@ -505,17 +504,46 @@ public class ManagerDAO implements IManagerDAO{
 		
 		//
 		Connection con = dataSource.getConnection();
-		//ManagerConnection.getInstance().getConnection();
-		ResultSet rs = null;
+	    long id_usuario = 0;
 		PreparedStatement pst = null;
-		////////System.out.println(con);
 		try {
+			// se un numero nuevo!!!! en un segundo 0000000000.1 segundo
+			pst = con.prepareStatement("insert into openmall_usuario values(0,0,?,?)");
 
-			pst = con.prepareStatement("insert into openmall_usuario values(0,?,?,?)");
+			pst.setString(1, datos.getUsername());
+			pst.setString(2, datos.getPassword());
+			
+			boolean ret = pst.execute();
+			
+			// se un numero nuevo!!!! en un segundo 0000000000.1 segundo
+			pst = con.prepareStatement("select max(id_usuario) from openmall_usuario");
 
+			ResultSet rs = pst.executeQuery();
+			
+			if(rs.next())
+			{
+				id_usuario = rs.getLong(1);
+				
+			}
 			
 			
-			pst.execute();
+			
+			if( !ret && id_usuario > 0)
+			{
+				
+			    pst = con.prepareStatement("insert into openmall_datos_usuario values(?,?,?,? ,?,?,?,?)");
+
+			    pst.setLong(1, id_usuario);
+			    pst.setString(2, datos.getNombres());
+			    pst.setString(3, datos.getApellidos());
+			    pst.setString(4, datos.getEmail());
+			    pst.setString(5, datos.getDireccion());
+			    pst.setString(6, datos.getTelefono());
+			    pst.setInt(7, 0);
+			    pst.setInt(8, 0);
+			    
+			    pst.execute();
+			}   
 			
 		} catch (Exception e) {
 

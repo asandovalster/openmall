@@ -17,7 +17,16 @@
 
 
 		<pm:view id="navbar" swatch="e">
- 			<pm:header title="#{userBean.datos.nombres} #{userBean.datos.apellido}" swatch="b">
+ 			<pm:header title="#{userBean.datos.nombres} #{userBean.datos.apellidos}" swatch="b">
+ 			
+ 				<f:facet name="left">
+ 					<p:button value="Salir" icon="back" href="./logon.xhtml" />
+ 				</f:facet>
+ 				
+ 				<f:facet name="right">
+ 					<p:button value="Profile" icon="gear" href="#viewTrafico" />
+ 				</f:facet>
+
  			
             </pm:header>
 			<!-- <h:outputScript library="js" name="common.js" /> -->
@@ -29,21 +38,22 @@
 			<pm:content>
 			
 			<pm:navBar>
-            	<p:button value="Búsqueda" icon="search" href="#main?reverse=true" />
+            	<p:button value="Búsqueda" icon="search" href="#main?reverse=true" 
+            	styleClass="ui-btn-active"/>
             	<p:button value="Productos" icon="search" href="#main?reverse=true"
-                     styleClass="ui-btn-active"/>
+                     />
             	<p:button value="Tiendas" icon="star" href="#main?reverse=true"
-                     styleClass="ui-btn-active"/>
+                     />
             	<p:button value="Profile" icon="gear" href="#main?reverse=true"
-                     styleClass="ui-btn-active"/>
-            
-        	</pm:navBar>
+                     />
+         	</pm:navBar>
 			
 			
 				
               
   			</pm:content>
 		</pm:view>
+		
 		<pm:view id="viewTrafico">
 			<div id="psdg-header">
 				<span class="psdg-bold">OpenMall Mobile</span><br /> Web

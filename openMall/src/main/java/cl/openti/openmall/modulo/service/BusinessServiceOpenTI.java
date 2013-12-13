@@ -9,7 +9,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cl.openti.openmall.modulo.dao.IManagerDAO;
-import cl.openti.openmall.modulo.exception.HitesException;
+import cl.openti.openmall.modulo.exception.OpenTIException;
+import cl.openti.openmall.modulo.model.bean.DatosUsuarioBean;
 import cl.openti.openmall.modulo.model.bean.MeterGaugeChart;
 import cl.openti.openmall.modulo.model.bean.TableBean;
 import cl.openti.openmall.modulo.model.bean.TableCDABean;
@@ -39,7 +40,28 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadArchivos(TableCDABean cda) throws HitesException {
+	public void saveRegister(DatosUsuarioBean datos) throws OpenTIException {
+		// TODO Auto-generated method stub
+	
+		try {
+			
+			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
+					"bean_configuration.xml", this.getClass());
+			IManagerDAO dao = (IManagerDAO) beanFactory.getBean("ManagerDao");
+			dao.registerUsuario(datos);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
+		}
+		
+		log.debug("Finalizando la capa de Servicio");
+		
+	}
+	
+	@Override
+	public void loadArchivos(TableCDABean cda) throws OpenTIException {
 		// TODO Auto-generated method stub
 		
 		try {
@@ -52,13 +74,13 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
 	}
 	@Override
-	public void loadUser(UserBean user) throws HitesException {
+	public void loadUser(UserBean user) throws OpenTIException {
 		
 		try {
 			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
@@ -69,7 +91,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -78,7 +100,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadModulos(UserBean user) throws HitesException {
+	public void loadModulos(UserBean user) throws OpenTIException {
 		
 		try {
 			ApplicationContext beanFactory = new ClassPathXmlApplicationContext(
@@ -87,7 +109,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadModulos(user);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -97,7 +119,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 
 	@Override
-	public void loadVentas(TableBean table) throws HitesException {
+	public void loadVentas(TableBean table) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("loadVentas");
@@ -108,14 +130,14 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadVentas( table );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
 	}
 	
 	@Override
-	public void loadVentas(TableCDABean table) throws HitesException {
+	public void loadVentas(TableCDABean table) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("loadVentas");
@@ -126,7 +148,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadVentasCDA( table );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -134,7 +156,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadMetas(TableBean table) throws HitesException {
+	public void loadMetas(TableBean table) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("loadMetas");
@@ -145,7 +167,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadMetas( table );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -154,7 +176,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	
-	public void loadVentasHora(TableHourLocalBean table) throws HitesException{
+	public void loadVentasHora(TableHourLocalBean table) throws OpenTIException{
 		
 				try {
 					System.out.println("loadVentasHora");
@@ -165,7 +187,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 					dao.loadVentasHora( table );
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					throw new HitesException("Error en la capa de Servicio " + e.getCause());
+					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 				}
 				
 				log.debug("Finalizando la capa de Servicio");
@@ -177,7 +199,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
     /**
      * Carga del Ranking Supervisor
      */
-	public void loadRankingSupervisor(TableDsctoSuperBean table) throws HitesException{
+	public void loadRankingSupervisor(TableDsctoSuperBean table) throws OpenTIException{
 		
 				try {
 					
@@ -188,7 +210,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					throw new HitesException("Error en la capa de Servicio " + e.getCause());
+					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 				}
 				
 				log.debug("Finalizando la capa de Servicio");
@@ -196,7 +218,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	}
 	
 	
-	public void loadGarantiaExtendida(TableDsctoGarantiaDeptoBean table) throws HitesException{
+	public void loadGarantiaExtendida(TableDsctoGarantiaDeptoBean table) throws OpenTIException{
 		
 		try {
 			
@@ -207,7 +229,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -219,7 +241,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	 */
 //	@Override
 //	public void loadGarantiasExtendidas(TableGarantiaExtendidaBean table)
-//			throws HitesException {
+//			throws OpenTIException {
 //
 //
 //		try {
@@ -228,7 +250,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 //			
 //		} catch (SQLException e) {
 //			// TODO Auto-generated catch block
-//			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+//			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 //		}
 //		
 //		log.debug("Finalizando la capa de Servicio");
@@ -238,7 +260,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadMedidor(MeterGaugeChart bean) throws HitesException {
+	public void loadMedidor(MeterGaugeChart bean) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("loadVentas");
@@ -250,7 +272,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadMedidor( bean );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -259,7 +281,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadPie(PieChartModel pie) throws HitesException {
+	public void loadPie(PieChartModel pie) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println("loadVentas");
@@ -271,7 +293,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadPie( pie );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
@@ -279,7 +301,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	
 	
 	@Override
-	public void loadBarra(CartesianChartModel  category) throws HitesException {
+	public void loadBarra(CartesianChartModel  category) throws OpenTIException {
 		// TODO Auto-generated method stub
 		try {
 			
@@ -289,14 +311,14 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 			dao.loadBarra( category );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");
 	}
 
 	@Override
-	public void loadVentas(TableHourBean table) throws HitesException {
+	public void loadVentas(TableHourBean table) throws OpenTIException {
 		// TODO Auto-generated method stub
 				try {
 					System.out.println("BusinessServiceHites.loadVentas:"+table.getDfecha());
@@ -308,7 +330,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 					dao.loadVentas( table );
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					throw new HitesException("Error en la capa de Servicio " + e.getCause());
+					throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 				}
 				
 				log.debug("Finalizando la capa de Servicio");
@@ -316,7 +338,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 	}
 
 	@Override
-	public void loadMap(ZonaBean zona, int cod) throws HitesException {
+	public void loadMap(ZonaBean zona, int cod) throws OpenTIException {
 		// TODO Auto-generated method stub
 		
 		
@@ -329,7 +351,7 @@ public class BusinessServiceOpenTI implements IBusinessService, Serializable {
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			throw new HitesException("Error en la capa de Servicio " + e.getCause());
+			throw new OpenTIException("Error en la capa de Servicio " + e.getCause());
 		}
 		
 		log.debug("Finalizando la capa de Servicio");

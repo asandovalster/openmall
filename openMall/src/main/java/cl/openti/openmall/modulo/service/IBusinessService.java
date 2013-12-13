@@ -3,7 +3,8 @@ package cl.openti.openmall.modulo.service;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.PieChartModel;
 
-import cl.openti.openmall.modulo.exception.HitesException;
+import cl.openti.openmall.modulo.exception.OpenTIException;
+import cl.openti.openmall.modulo.model.bean.DatosUsuarioBean;
 import cl.openti.openmall.modulo.model.bean.MeterGaugeChart;
 import cl.openti.openmall.modulo.model.bean.TableBean;
 import cl.openti.openmall.modulo.model.bean.TableCDABean;
@@ -16,48 +17,50 @@ import cl.openti.openmall.modulo.model.bean.ZonaBean;
 
 public interface IBusinessService {
 
-	void loadUser(UserBean user) throws HitesException;
+	void loadUser(UserBean user) throws OpenTIException;
 	
-	void loadModulos(UserBean user) throws HitesException;
+	void loadModulos(UserBean user) throws OpenTIException;
 
-	void loadVentas(TableBean table) throws HitesException;
+	void loadVentas(TableBean table) throws OpenTIException;
 
-	void loadVentasHora(TableHourLocalBean table) throws HitesException;
+	void loadVentasHora(TableHourLocalBean table) throws OpenTIException;
 
-	void loadVentas(TableHourBean table) throws HitesException;
+	void loadVentas(TableHourBean table) throws OpenTIException;
 
-	void loadVentas(TableCDABean table) throws HitesException;
+	void loadVentas(TableCDABean table) throws OpenTIException;
 	
-	void loadMetas(TableBean table) throws HitesException;
+	void loadMetas(TableBean table) throws OpenTIException;
 	
-	void loadRankingSupervisor(TableDsctoSuperBean table) throws HitesException;
+	void loadRankingSupervisor(TableDsctoSuperBean table) throws OpenTIException;
 	
-	void loadGarantiaExtendida(TableDsctoGarantiaDeptoBean table) throws HitesException;
+	void loadGarantiaExtendida(TableDsctoGarantiaDeptoBean table) throws OpenTIException;
 
-	void loadMedidor(MeterGaugeChart model) throws HitesException;
+	void loadMedidor(MeterGaugeChart model) throws OpenTIException;
 
-	void loadPie(PieChartModel pie) throws HitesException;
+	void loadPie(PieChartModel pie) throws OpenTIException;
 
-	void loadBarra(CartesianChartModel category) throws HitesException;
+	void loadBarra(CartesianChartModel category) throws OpenTIException;
 
-	void loadMap(ZonaBean zona, int cod) throws HitesException;
+	void loadMap(ZonaBean zona, int cod) throws OpenTIException;
 
-	void loadArchivos(TableCDABean cda) throws HitesException;
+	void loadArchivos(TableCDABean cda) throws OpenTIException;
 	
-	public String getLdapFactory();
+	public String getLdapFactory() throws OpenTIException;
 
-	public void setLdapFactory(String ldapFactory);
+	public void setLdapFactory(String ldapFactory) throws OpenTIException;
 
-	public String getLdap_URL();
+	public String getLdap_URL() throws OpenTIException;
 
-	public void setLdap_URL(String ldap_URL);
+	public void setLdap_URL(String ldap_URL) throws OpenTIException;
 
-	public String getSearchBase();
+	public String getSearchBase() throws OpenTIException;
 
-	public void setSearchBase(String searchBase);
+	public void setSearchBase(String searchBase) throws OpenTIException;
 
-	public String getDominio();
+	public String getDominio() throws OpenTIException;
 
-	public void setDominio(String dominio);
+	public void setDominio(String dominio) throws OpenTIException;
+	
+	public void saveRegister(DatosUsuarioBean datos) throws OpenTIException;
 
 }
